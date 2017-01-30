@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>SurvAll</title>
+
+  </head>
+
+	<nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+      			<a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
+      			<a class="navbar-brand" href="{% url 'create_survey' %}">Create a Survey</a>
+      			<a class="navbar-brand" href="#">View Results</a>
+    		</div>
+ 
+      		</div>
+  		</div>
+	</nav>
+  <body>
+ 	<div class="container-fluid">
+    <div class="jumbotron">
+      <h1 class = "text-center">Welcome to SurvAll</h1>
+  </div>
+		
+    <br />
+			<table class ="table" border='2'>
+			    <tr>
+               		<th>Survey Name</th>
+               		<th>Date Created </th>
+               		<th>Number of Questions</th>
+               		<th>Times Completed</th>
+               	</tr>
+				{% for post in posts.all %}
+				<tr>
+               		<td>{{ post.title}}</td>
+               		<td>{{ post.dateFormat}}</td>
+               		<td>{{ post.numOfQuestions|floatformat:0 }}</td>
+               		<td>{{ post.numOfTimesCompleted|floatformat:0 }}</td>
+
+
+               	</tr>
+               	{% endfor %}
+               
+			</table>  
+
+
+	</div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
