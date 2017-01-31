@@ -4,6 +4,8 @@ from django.http import HttpResponseRedirect
 from django.utils import timezone
 from .forms import NameForm
 import posts.models
+from posts.models import Question
+
 
 
 def get_name(request):
@@ -34,15 +36,31 @@ def create_survey(request):
 def view_survey(request):
     return HttpResponse("Woofghdfgla")
 
+
+
 def add_questions(request):
+    i = 1
     if request.method == "POST":
         if request.POST["surveyName"]:
+            questionCounter = request.POST.get('numquestion', False)
+
+
             survey = posts.models.Post()
             survey.title = request.POST["surveyName"]
             survey.dateSurvCreated = timezone.datetime.now()
-            survey.numOfQuestions = 1
-            survey.numOfTimesCompleted = 1
+            survey.numOfQuestions = questionCounter
+            survey.numOfTimesCompleted = 0
             survey.save()
+
+
+            
+            while i <= int(questionCounter): 
+                question = posts.models.Question()  
+                question.questionLabel = request.POST.get("Question" + str(i),False)
+                question.surveybelongto = survey.title
+                question.save()
+                i += 1
+ 
             return render(request, 'sitepages/addQuestions.html', {'survey': survey})
         else:
             return render(request, 'sitepages/create_survey.html')

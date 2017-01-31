@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("h2").click(function(){
+            $(this).hide();
+        });
+    });
+    </script>
     {% load static %}
     <script src = "{% static 'js/my_javascript.js' %}"> </script>
     <meta charset="utf-8">
@@ -10,7 +19,7 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <title>SurvAll</title>
+    <title>Create a Survey</title>
 
 
   </head>
@@ -33,18 +42,13 @@
     </div>
 
 
-    <form class="navbar-form navbar-left" action ="{% url 'add_questions' %}" method="post"  id="form">
+    <form class="navbar navbar-defaul" action ="{% url 'add_questions' %}" method="post"  id="form">
     {% csrf_token %}
       <div class="form-group ">
         <h2>Enter Survey Name</h2>
         <br />
         <input autocomplete="off" class="form-control" id="surveyName" name="surveyName" type="text" placeholder="Enter survey titlte"/>
        </div>
-       
-
-       <hr />
-
-      
 
        <div id="room_fileds">
            <div>
@@ -56,17 +60,22 @@
                 <input type="text" class="form-control" name="Question1" value="" placeholder="Enter question" id = "Question1" />
                 <br />
 
-                <label>Enter Answers</label>
+                <label>Choose Answer Type</label>
+                <div class="input-group">
+                  <div class = "radio">
+                    <label><input type="radio" value = "MultipleChoice" name="optradio" onClick="addTextField()">Multiple Choice</label>
+                   <label><input type="radio" value = "LinearScale" name="optradio">Linear Scale</label>
+                   <label><input type="radio" value = "Images" name="optradio">Images</label>
+                  </div>
+                </div><!-- /input-group -->
                 <br />
-
-                <input type="text" class="form-control"  namae="length[]" value="" />
             </div>
            </div>
         </div>
         <br />
 
           <hr />
-         <input type="button" id="more_fields" onclick="add_fields();" value="Add Question" class="btn btn-primary" />
+         <input type="button" id="more_fields" onclick="add_fields()" value="Add Question" class="btn btn-primary" />
          <button type="submit" class="btn btn-default">Submit</button>
 
       </form>
@@ -75,6 +84,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+   <script src="{% static 'js/app.js' %}"></script>
   </body>
 </html>
 

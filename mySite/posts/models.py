@@ -4,8 +4,8 @@ from django.db import models
 class Post(models.Model):
 	title = models.CharField(max_length = 250)
 	dateSurvCreated = models.DateTimeField()
-	numOfQuestions = models.DecimalField(max_digits=5, decimal_places=2, default = '1')
-	numOfTimesCompleted = models.DecimalField(max_digits=5, decimal_places=2, default = '1')
+	numOfQuestions = models.IntegerField( default = '1')
+	numOfTimesCompleted = models.IntegerField( default = '1')
 
 
 	def __str__(self):
@@ -17,3 +17,5 @@ class Post(models.Model):
 	
 class Question(models.Model):
 	questionLabel = models.CharField(max_length = 250)
+	surveybelongto = models.CharField(max_length = 250, default = "survey")
+

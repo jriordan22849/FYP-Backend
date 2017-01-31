@@ -1,3 +1,4 @@
+
 function addRow(input) {
     var table = document.getElementById("myTable");
     var i = parseInt(input.id.substring(3, input.id.length));
@@ -8,9 +9,10 @@ function addRow(input) {
     var cell = row.insertCell(0);
     cell.innerHTML = '<div class="input-group">'+
     					'<label>Question '+table.rows.length+'</label>' +
-                        '<input type="text" class="form-control" placeholder = "Enter Question"/ id = "'+table.rows.length+'">'+
+                        '<input type="text" class="form-control" placeholder = "Enter Question" id = "'+table.rows.length+'">'+
                         '<span class="input-group-btn">'+
                         '</span>'+
+                        '<hr />'+
                         '<hr />'+
                      '</div>';
                     
@@ -37,6 +39,13 @@ function add_fields() {
     questions++;
     var objTo = document.getElementById('room_fileds')
     var divtest = document.createElement("div");
+    var numquestion = document.createElement("input"); 
+    numquestion.innerHTML = questions;
+    numquestion.value = questions;
+    numquestion.style.display = 'none'; 
+    numquestion.setAttribute("name", "numquestion");
+    numquestion.setAttribute("id", "numquestion");
+
 
     divtest.innerHTML = '<div class="label">'+
     'Room ' + questions +':</div>'+
@@ -49,9 +58,34 @@ function add_fields() {
     '<br />'+
     '<input type="text" class="form-control"  namae="length[]" value="" />';
     
-    objTo.appendChild(divtest)
+    objTo.appendChild(divtest);
+    objTo.appendChild(numquestion);
+
 }
-        
+
+
+var numberOfAnswers = 0;
+function addTextField() {
+    event.preventDefault();
+    numberOfAnswers ++;
+    var objTo = document.getElementById('room_fileds')
+    var divtest = document.createElement("div");
+    var addButton = document.createElement("button");
+    var counter = numberOfAnswers;
+    counter += 1;
+
+    divtest.innerHTML = 
+    '<div class="content">'+
+    '<input type="text" class="form-control" name="Answer'+numberOfAnswers+'" value="" placeholder ="Answer'+numberOfAnswers+'" id = Answer'+numberOfAnswers+'/>'+
+    '<input type="text" class="form-control" name="Answer'+(counter)+'" value="" placeholder ="Answer'+(counter)+'" id = Answer'+(counter)+'/>'+
+
+
+    '<br />';
+
+    
+    objTo.appendChild(divtest);
+}
+
 // function selectChange(optionPicked) {
 
 //     var answerFormat = document.getElementById("myTable");

@@ -36,17 +36,19 @@
                		<th>Date Created </th>
                		<th>Number of Questions</th>
                		<th>Times Completed</th>
+                  <th></th>
                	</tr>
-				{% for post in posts.all %}
-				<tr>
+				  {% for post in posts.all %}
+				  <tr>
                		<td>{{ post.title}}</td>
                		<td>{{ post.dateFormat}}</td>
                		<td>{{ post.numOfQuestions|floatformat:0 }}</td>
                		<td>{{ post.numOfTimesCompleted|floatformat:0 }}</td>
+                  <td><button><span class ="glyphicon glyphicon-file"></span></button></td>
 
 
-               	</tr>
-               	{% endfor %}
+          </tr>
+          {% endfor %}
                
 			</table>  
 
