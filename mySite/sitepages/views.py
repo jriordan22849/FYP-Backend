@@ -43,8 +43,9 @@ def add_questions(request):
     if request.method == "POST":
         if request.POST["surveyName"]:
             questionCounter = request.POST.get('numquestion', False)
+            questionNumber = request.POST.get('questionNumber', False)
 
-
+            # save the survey title and information regarding the survey to the database.
             survey = posts.models.Post()
             survey.title = request.POST["surveyName"]
             survey.dateSurvCreated = timezone.datetime.now()
@@ -53,14 +54,19 @@ def add_questions(request):
             survey.save()
 
 
-            
+            # Save the question label to the database.
             while i <= int(questionCounter): 
+                
                 question = posts.models.Question()  
                 question.questionLabel = request.POST.get("Question" + str(i),False)
                 question.surveybelongto = survey.title
+                question.questionNumber = i
+                print("Print questionNumber " + str(i))
                 question.save()
                 i += 1
- 
+            
+            # save the answers to the database for each question.
+
             return render(request, 'sitepages/addQuestions.html', {'survey': survey})
         else:
             return render(request, 'sitepages/create_survey.html')

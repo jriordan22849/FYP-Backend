@@ -27,9 +27,14 @@
  	<div class="container-fluid">
     <form action="" method="post">
       {% csrf_token %}
+      <label>Survey Title: </label>
       {{ survey.title }}
+      <br>
+      <label>Survey Created: </label>
       {{ survey.dateSurvCreated }}
-      <input type="submit" value="Submit" />
+      <br>
+      <label>Number of Questions: </label>
+      {{ survey.numOfQuestions}}
     </form>
 	</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

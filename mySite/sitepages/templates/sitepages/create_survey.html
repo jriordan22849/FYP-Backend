@@ -3,13 +3,6 @@
   <head>
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script>
-    $(document).ready(function(){
-        $("h2").click(function(){
-            $(this).hide();
-        });
-    });
-    </script>
     {% load static %}
     <script src = "{% static 'js/my_javascript.js' %}"> </script>
     <meta charset="utf-8">
@@ -50,29 +43,11 @@
         <input autocomplete="off" class="form-control" id="surveyName" name="surveyName" type="text" placeholder="Enter survey titlte"/>
        </div>
 
-       <div id="room_fileds">
-           <div>
-            <div class='label'>Room 1:</div>
-            <div class="content">
-                <label>Enter Question 1</label>
-                <br />
+       <div id = "questionArea">
 
-                <input type="text" class="form-control" name="Question1" value="" placeholder="Enter question" id = "Question1" />
-                <br />
+       </div>
 
-                <label>Choose Answer Type</label>
-                <div class="input-group">
-                  <div class = "radio">
-                    <label><input type="radio" value = "MultipleChoice" name="optradio" onClick="addTextField()">Multiple Choice</label>
-                   <label><input type="radio" value = "LinearScale" name="optradio">Linear Scale</label>
-                   <label><input type="radio" value = "Images" name="optradio">Images</label>
-                  </div>
-                </div><!-- /input-group -->
-                <br />
-            </div>
-           </div>
-        </div>
-        <br />
+ 
 
           <hr />
          <input type="button" id="more_fields" onclick="add_fields()" value="Add Question" class="btn btn-primary" />
