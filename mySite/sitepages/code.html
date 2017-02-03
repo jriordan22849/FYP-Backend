@@ -120,3 +120,30 @@ def add_questions(request):
             return render(request,'sitepages/create_survey.html')
 	else:
         return render
+
+
+
+
+      <div id="room_fileds">
+           <div>
+            <div class='label'>Room 1:</div>
+            <div class="content">
+                <label>Enter Question 1</label>
+                <br />
+
+                <input type="text" class="form-control" name="Question1" value="" placeholder="Enter question" id = "Question1" />
+                <br />
+
+                <label>Choose Answer Type</label>
+                <div class="input-group">
+                  <div class = "radio">
+                    <label><input type="radio" value = "MultipleChoice" name="optradio" onClick="addTextField()">Multiple Choice</label>
+                   <label><input type="radio" value = "LinearScale" name="optradio">Linear Scale</label>
+                   <label><input type="radio" value = "Images" name="optradio">Images</label>
+                  </div>
+                </div><!-- /input-group -->
+                <br />
+            </div>
+           </div>
+        </div>
+        <br />

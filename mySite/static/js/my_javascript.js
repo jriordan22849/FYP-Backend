@@ -44,7 +44,7 @@ function add_fields() {
     '</div>';
 
     // reset varailbes
-    numberOfAnswers = 0
+    //numberOfAnswers = 0
     
     objTo.appendChild(divtest);
     objTo.appendChild(numquestion);
@@ -68,16 +68,22 @@ function addTextField(divID) {
     questionNumber.setAttribute("name", "questionNumber");
     questionNumber.setAttribute("id", "questionNumber");
 
-    answerCounter = divID;
+    var ans = document.createElement("input"); 
+    ans.innerHTML = numberOfAnswers;
+    ans.value = numberOfAnswers;
+    ans.style.display = 'none'; 
+    ans.setAttribute("name", "ans");
+    ans.setAttribute("id", "ans");
 
     divtest.innerHTML +=
     '<div class="content">'+
-        '<input type="text" class="form-control" name="Answer'+numberOfAnswers+'" value="" placeholder ="Answer '+numberOfAnswers+'" id = Answer'+numberOfAnswers+'/>'+
+        '<input type="text" class="form-control" name="question'+divID+'Answer'+numberOfAnswers+'" value="" placeholder ="question'+divID+'Answer '+numberOfAnswers+'" id = Answer'+numberOfAnswers+'/>'+
         '<br />'+
     '</div>';
     numberOfAnswers ++;
 
     
     objTo.appendChild(divtest);
+    objTo.appendChild(ans);
     //objTo.appendChild(questionNumber);
 }

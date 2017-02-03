@@ -5,6 +5,7 @@ from django.utils import timezone
 from .forms import NameForm
 import posts.models
 from posts.models import Question
+from posts.models import Answers
 
 
 
@@ -40,10 +41,15 @@ def view_survey(request):
 
 def add_questions(request):
     i = 1
+    j = 0
+
+    answers = []
     if request.method == "POST":
         if request.POST["surveyName"]:
             questionCounter = request.POST.get('numquestion', False)
             questionNumber = request.POST.get('questionNumber', False)
+            ansNumber = request.POST.get('ans',False)
+            print("\n\n\nNumber of answers " + str(ansNumber))
 
             # save the survey title and information regarding the survey to the database.
             survey = posts.models.Post()
@@ -63,9 +69,26 @@ def add_questions(request):
                 question.questionNumber = i
                 print("Print questionNumber " + str(i))
                 question.save()
+
+                while j <= int(ansNumber):
+
+                    ans = posts.models.Answers()
+                    ans.answerID = str(j)
+                    ans.answerLabel = request.POST.get("question"+str(i)+"Answer"+str(j),False)
+                    ans.questionNumber = i
+                    ans.surveyTitle = survey.title 
+                    ans.questionLabel = question.questionLabel
+                    
+
+                    if ans.answerLabel == False:
+                        break;
+                    ans.save()
+
+                    print("question"+str(i)+"Answer"+str(j))
+                    j += 1
                 i += 1
             
-            # save the answers to the database for each question.
+
 
             return render(request, 'sitepages/addQuestions.html', {'survey': survey})
         else:
