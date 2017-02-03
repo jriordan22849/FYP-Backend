@@ -28,6 +28,10 @@ class Answers(models.Model):
 	questionNumber = models.IntegerField( default = '1')
 	surveyTitle = models.CharField(max_length = 250, default = "survey")
 	questionLabel = models.CharField(max_length = 250, default = "survey")
+	questionType = models.CharField(max_length = 250, default = "Question type")
+	scaleMinimum = models.IntegerField( default = '1')
+	scaleMaximum = models.IntegerField( default = '1')
+	urlForImage = models.CharField(max_length = 250, default = "URL")
 
 
 

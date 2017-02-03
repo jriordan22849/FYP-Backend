@@ -71,7 +71,7 @@ def add_questions(request):
                 question.save()
 
                 while j <= int(ansNumber):
-
+                    print("question"+str(i)+"Answer"+str(j))
                     ans = posts.models.Answers()
                     ans.answerID = str(j)
                     ans.answerLabel = request.POST.get("question"+str(i)+"Answer"+str(j),False)
@@ -81,11 +81,13 @@ def add_questions(request):
                     
 
                     if ans.answerLabel == False:
-                        break;
+                        break
+                        
                     ans.save()
 
-                    print("question"+str(i)+"Answer"+str(j))
+                    
                     j += 1
+
                 i += 1
             
 

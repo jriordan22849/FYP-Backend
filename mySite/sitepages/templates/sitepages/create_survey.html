@@ -17,7 +17,7 @@
 
   </head>
 
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
@@ -35,7 +35,7 @@
     </div>
 
 
-    <form class="navbar navbar-defaul" action ="{% url 'add_questions' %}" method="post"  id="form">
+    <form class="navbar navbar-defaul form-control" action ="{% url 'add_questions' %}" method="post"  id="form">
     {% csrf_token %}
       <div class="form-group ">
         <h2>Enter Survey Name</h2>
@@ -45,13 +45,16 @@
 
        <div id = "questionArea">
 
+
        </div>
 
  
 
           <hr />
-         <input type="button" id="more_fields" onclick="add_fields()" value="Add Question" class="btn btn-primary" />
-         <button type="submit" class="btn btn-default">Submit</button>
+          <div id = "addFieldArea">
+          </div>
+         <input type="button" id="more_fields" onclick="add_fields();" value="Add Question" class="btn btn-primary btn-lg" />
+         <button type="submit" class="btn btn-default btn-lg">Submit</button>
 
       </form>
     </div>

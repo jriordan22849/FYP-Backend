@@ -1,6 +1,8 @@
 var questions = 0;
 var numberOfAnswers = 0;
 var answerCounter = 0;
+var numbers = [10];
+var qPos;
 
 function addTextField(input) {
     var table = document.getElementById("myTable");
@@ -18,7 +20,7 @@ function add_fields() {
     questions++;
     var objTo = document.getElementById('questionArea')
     var divtest = document.createElement("div"+questions);
-
+    divtest.innerHTML = '';
     var numquestion = document.createElement("input"); 
     numquestion.innerHTML = questions;
     numquestion.value = questions;
@@ -29,20 +31,22 @@ function add_fields() {
 
     divtest.innerHTML = '<hr />'+
     '<div id class="content">'+
-        '<label>Enter Question '+questions+'</label>'+
+        '<h3>Enter Question '+questions+'</h3>'+
         '<br />'+
         '<input type="text" class="form-control" name="Question'+questions+'" value="" placeholder ="Question '+questions+'" id = Question'+questions+'/>'+
         '<br />'+
-        '<label>Choose Answer Type</label>'+
+        '<h4>Choose Answer Type</h4>'+
         '<br />'+
         '<div class="input-group">'+
             '<div class = "radio">'+
-            '<label><input type="radio" value = "MultipleChoice" name="optradio'+questions+'" onclick="addTextField('+questions+')">Multiple Choice</label>'+
-            '<label><input type="radio" value = "LinearScale" name="optradio'+questions+'">Linear Scale</label>'+
-            '<label><input type="radio" value = "Images" name="optradio'+questions+'">Images</label>'+
+                '<label><input type="radio" value = "MultipleChoice" name="optradio'+questions+'" onclick="addTextField('+questions+')" >Multiple Choice</label>'+
+                '<label><input type="radio" value = "LinearScale" name="optradio'+questions+'" onclick="addScale('+questions+')">Scale</label>'+
+                '<label><input type="radio" value = "Images" name="optradio'+questions+'">Images</label>'+
+            '</div>'+
         '</div>'+
-    '</div>';
+    '</div';
 
+    qPos = questions;
     // reset varailbes
     //numberOfAnswers = 0
     
@@ -53,14 +57,62 @@ function add_fields() {
 
 
 
+
+function addScale(index) {
+    var index;
+    var objTo = document.getElementById('questionArea');
+    
+    var div = document.createElement("div"+index);
+    var scaleHeader = document.createElement("h3"); 
+    scaleHeader.innerHTML = "Select Scale Values";
+    scaleHeader.setAttribute("id", "scaleheader");
+    div.appendChild(scaleHeader);
+        
+    div.innerHTML += 
+    '<div class="btn-group">'+
+        '<label>Minimum Value</label>'+
+        '<br />'+
+        '<select id = "dropDownListMin'+index+'">'+
+        '</select>'+
+        '<br />'+
+        '<br />'+
+        '<label>Maximum Value</label>'+
+        '<br />'+
+        '<select id = "dropDownListMax'+index+'">'+
+        '</select>'+
+    '<br />';
+
+
+    objTo.appendChild(div);
+
+    var select = document.getElementById("dropDownListMin"+index);
+    var selectMax = document.getElementById("dropDownListMax"+index);
+
+    for(var i = 0; i <= 10; i ++) {
+        var option = document.createElement("option");
+        option.innerHTML = i;
+        option.value = i;       
+        select.appendChild(option);
+        
+    }
+
+    for(var i = 0; i <= 10; i ++) {
+        var option = document.createElement("option");
+        option.innerHTML = i;
+        option.value = i;       
+        selectMax.appendChild(option);
+        
+    }
+}
+
 function addTextField(divID) {
-    event.preventDefault();
 
     var objTo = document.getElementById('questionArea')
     var divtest = document.createElement("div"+divID);
     var counter = numberOfAnswers;
+    var addButton = document.getElementById("addFieldArea");
     counter += 1;
-
+    questionPos = divID
     var questionNumber = document.createElement("label"); 
     questionNumber.innerHTML = divID;
     questionNumber.value = divID;
@@ -77,13 +129,25 @@ function addTextField(divID) {
 
     divtest.innerHTML +=
     '<div class="content">'+
-        '<input type="text" class="form-control" name="question'+divID+'Answer'+numberOfAnswers+'" value="" placeholder ="question'+divID+'Answer '+numberOfAnswers+'" id = Answer'+numberOfAnswers+'/>'+
+        '<input type="text" class="form-control" name="question'+divID+'Answer'+numberOfAnswers+'" value="" placeholder ="Enter Answer" id = Answer'+numberOfAnswers+'/>'+
         '<br />'+
     '</div>';
     numberOfAnswers ++;
 
+
+    addButton.innerHTML = '<hr />'+
+    '<div id class="content">'+
+    '<input type="button" id="more_fields" onclick="addTextField('+divID+')" value="Add Text Field" class="btn btn-primary" />'+
+    '</div>';
+
+
+
+    
+
+
     
     objTo.appendChild(divtest);
     objTo.appendChild(ans);
+    objTo.appendChild(addButton);
     //objTo.appendChild(questionNumber);
 }
