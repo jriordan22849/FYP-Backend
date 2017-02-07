@@ -3,6 +3,7 @@ var numberOfAnswers = 0;
 var answerCounter = 0;
 var numbers = [10];
 var qPos;
+var option = 0;
 
 function addTextField(input) {
     var table = document.getElementById("myTable");
@@ -28,9 +29,6 @@ function add_fields() {
     numquestion.setAttribute("name", "numquestion");
     numquestion.setAttribute("id", "numquestion");
 
-
-
-
     divtest.innerHTML = '<hr />'+
     '<div id class="content">'+
         '<h3>Enter Question '+questions+'</h3>'+
@@ -45,7 +43,7 @@ function add_fields() {
                     '<label><input class="form-check-input" type="radio" value = "MultipleChoice" name="optradio'+questions+'" onclick="addTextField('+questions+')" >Multiple Choice</label>'+
                 '</div>'+
                 '<div class="form-check">'+
-                    '<label><input class="form-check-input" type="radio" value = "LinearScale" name="optradio'+questions+'" onclick="addScale('+questions+')">Scale</label>'+
+                    '<label><input class="form-check-input" type="radio" value = "Scale" name="optradio'+questions+'" onclick="addScale('+questions+')">Scale</label>'+
                 '</div>'+
                 '<div class="form-check">'+
                     '<label><input class="form-check-input" type="radio" value = "Images" name="optradio'+questions+'" onclick="addImage('+questions+')"">Images</label>'+
@@ -66,30 +64,15 @@ function add_fields() {
 
 
 function addScale(index) {
-    var index;
-    var objTo = document.getElementById('questionArea');
-    
-    var div = document.createElement("div"+index);
-    var scaleHeader = document.createElement("h3"); 
-    scaleHeader.innerHTML = "Select Scale Values";
-    scaleHeader.setAttribute("id", "scaleheader");
-    div.appendChild(scaleHeader);
-        
-    div.innerHTML += 
-    '<div class="btn-group">'+
-        '<label>Minimum Value</label>'+
-        '<br />'+
-        '<select id = "question'+divID+'Answer'+numberOfAnswers+'">'+
-        '</select>'+
-        '<br />'+
-        '<br />'+
-        '<label>Maximum Value</label>'+
-        '<br />'+
-        '<select id = "question'+divID+'Answer'+(numberOfAnswers++)+'">'+
-        '</select>'+
-    '<br />';
+    objTo = document.getElementById('questionArea');
+    var divtest = document.createElement("div"+divID);
 
+    divtest.innerHTML += 
+    '<input id="ex1" data-slider-id="ex1Slider" type="text"'+
+    'data-slider-min="0" data-slider-max="20" data-slider-step="1"'+
+    ' data-slider-value="14"/>';
 
+    objTo.appendChild(divtest);
 }
 
 function addTextField(divID) {
@@ -126,7 +109,7 @@ function addTextField(divID) {
 
     divtest.innerHTML +=
     '<div class="content">'+
-        '<input type="text" class="form-control" name="question'+divID+'Answer'+numberOfAnswers+'" value="" placeholder ="Enter Answer" id = Answer'+numberOfAnswers+'/>'+
+        '<input type="text" class="form-control" name="question'+divID+'Answer'+numberOfAnswers+'" value="" placeholder ="question'+divID+'Answer'+numberOfAnswers+'" id = Answer'+numberOfAnswers+'/>'+
         '<br />'+
     '</div>';
     numberOfAnswers ++;
@@ -157,20 +140,26 @@ function addImage(divID) {
     objTo.appendChild(divtest);
 }
 
+function addURL(imageURL, divID, option) {
+    var urlbox = document.getElementById("optionSelected"+divID+"Option"+option)
+    urlbox.value = imageURL;
+
+}
+
 function displayImages(query, divID) {
     var API_KEY = '4472925-8399919af01d8365dad97fdbf';
     var objTo = document.getElementById('questionArea');
     var divtest = document.createElement("div"+divID);
+    divtest.setAttribute("id","div"+divID);
+    divtest.setAttribute("name","div"+divID);
+    divtest.innerHTML += "<br />";
     var counter = 0;
     var imageURL = [];
     var previewURL = '';
+    var imageCounter = 0;
+    var i = 0;
 
-
-    var urlselected = document.createElement("input"); 
-    urlselected.innerHTML = "Image URL";
-    urlselected.setAttribute("name", "urlselected");
-    urlselected.setAttribute("id", "urlselected");
-    divtest.innerHTML += "<br />";
+    var urlselected = document.createElement("label"); 
 
     // URL for user search image
     var URL = "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent(query);
@@ -179,37 +168,35 @@ function displayImages(query, divID) {
             $.each(data.hits, function(i, hit){
              // console.log(hit.pageURL); 
              counter += 1;
-             if(counter < 4) {
+
+             //numberOfAnswers ++;
+             if(counter < 3) {
                 imageURL.push(hit.previewURL);
-      
+                var temp = hit.previewURL;
+                console.log(temp);
+                    divtest.innerHTML +=
+                '<div id = "photoGallery'+divID+'>'+
+                    '<label>Div ID: '+divID+'</label>'+
+                    '<div class="radio">'+
+                            '<div class="thumbnail">'+
+                                '<input class="form-check-input"'+
+                                'value ="'+hit.previewURL+'" type = "radio"'+
+                                'name = "option" onclick = "addURL(this.value,'+divID+','+option+')">'+
+                                '<img src="'+hit.previewURL+'"  value = "'+hit.previewURL+'" class="img-rounded" alt="'+query+'"></input>'+
+                            '</div>'+
+                        '</div>'+
+                '</div>';
              }
          });
-        else
-            console.log('No hits');
+        divtest.innerHTML +=
+        '<input class="form-control" disabled id = "optionSelected'+divID+'Option'+option+'" value = "" placeholder = "Selected Image URL">';
+        option += 1;
     });
 
-    // var usernames = imageURL.map(function(user) {
-    //     return user.previewURL;   
-    // });
-    // console.log(usernames);
-    console.log(imageURL);
-    console.log(url1);
-    divtest.innerHTML +=
-        '<div class="container">'+
-            '<div class="row">'+
-                '<div class="col-md-12">'+
-                    '<div class="thumbnail">'+
-                        '<img src="'+imageURL[0]+'"  value = "'+imageURL[0]+'" class="img-rounded" alt="'+query+'">'+
-                    '</div>'+
-                '</div>'+
-            '</div>'+
-        '</div>';
-
-
     objTo.appendChild(divtest);
-
     objTo.appendChild(urlselected);
 }
+
 
 
 
