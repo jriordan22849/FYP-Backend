@@ -147,3 +147,45 @@ def add_questions(request):
            </div>
         </div>
         <br />
+
+
+
+
+
+
+            $.getJSON(URL, function(data){
+    // Only display three images to the user.
+    if (parseInt(data.totalHits) > 0)
+        $.each(data.hits, function(i, hit)
+        { 
+            counter += 1;
+            if(counter < 4) {
+                console.log(hit.previewURL);
+                divtest.innerHTML +=
+                '<div class="content">'+
+                '<br />'+
+            
+                '<img src="'+hit.previewURL+'">'+
+                '<br />'+
+                '</div>';
+
+            }    
+        });
+    else
+        console.log('No hits');
+    });
+
+    // var usernames = imageURL.map(function(user) {
+    //     return user.previewURL;   
+    // });
+    // console.log(usernames);
+
+    var image = imageURL.map(function(im) {
+        return im.previewURL;
+    });
+    console.log(image);
+
+    
+
+    console.log("Image URL");
+    console.log(imageURL)

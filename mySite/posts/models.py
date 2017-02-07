@@ -20,6 +20,7 @@ class Question(models.Model):
 	questionLabel = models.CharField(max_length = 250)
 	surveybelongto = models.CharField(max_length = 250, default = "survey")
 	questionNumber = models.IntegerField( default = '1')
+	numberOfAnswers = models.IntegerField( default = '1')
 
 
 class Answers(models.Model):

@@ -12,7 +12,7 @@
 
   </head>
 
-	<nav class="navbar navbar-inverse">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
   		<div class="container-fluid">
     		<div class="navbar-header">
       			<a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
@@ -25,15 +25,18 @@
 	</nav>
   <body>
  	<div class="container-fluid">
+    <div class="jumbotron">
+     <h1 class = "text-center">Survey Facts</h1>
+    </div>
     <form action="" method="post">
       {% csrf_token %}
-      <label>Survey Title: </label>
+      <h2>Survey Title: </h2>
       {{ survey.title }}
       <br>
-      <label>Survey Created: </label>
+      <h2>Survey Created: </h2>
       {{ survey.dateSurvCreated }}
       <br>
-      <label>Number of Questions: </label>
+      <h2>Number of Questions: </h2>
       {{ survey.numOfQuestions}}
     </form>
 	</div>

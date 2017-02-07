@@ -67,6 +67,7 @@ def add_questions(request):
                 question.questionLabel = request.POST.get("Question" + str(i),False)
                 question.surveybelongto = survey.title
                 question.questionNumber = i
+                question.numberOfAnswers = 1
                 print("Print questionNumber " + str(i))
                 question.save()
 
@@ -78,6 +79,8 @@ def add_questions(request):
                     ans.questionNumber = i
                     ans.surveyTitle = survey.title 
                     ans.questionLabel = question.questionLabel
+                    ans.questionType = request.POST.get("multiple" + str(i), "No Choice")
+                    print(ans.questionType)
                     
 
                     if ans.answerLabel == False:
