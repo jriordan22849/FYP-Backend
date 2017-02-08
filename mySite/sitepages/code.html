@@ -189,3 +189,23 @@ def add_questions(request):
 
     console.log("Image URL");
     console.log(imageURL)
+
+
+
+
+
+
+
+
+                        divtest.innerHTML +=
+                '<div id = "photoGallery'+divID+'>'+
+                    '<label>Div ID: '+divID+'</label>'+
+                    '<div class="radio">'+
+                            '<div class="thumbnail">'+
+                                '<input class="form-check-input"'+
+                                'value ="'+hit.previewURL+'" type = "radio"'+
+                                'name = "option" onclick = "addURL(this.value,'+divID+','+option+')">'+
+                                '<img src="'+hit.previewURL+'"  value = "'+hit.previewURL+'" class="img-rounded" alt="'+query+'"></input>'+
+                            '</div>'+
+                        '</div>'+
+                '</div>';

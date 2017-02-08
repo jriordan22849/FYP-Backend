@@ -1,0 +1,19 @@
+.flexbox {
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flexitem {
+  border-width: 1px;
+  border-style: none;
+  width: 100px;
+  display: inline-block;
+  margin: 0 40px 0 0;
+
+}
+
+img {
+  height: 100px;
+  width: 100px;
+}

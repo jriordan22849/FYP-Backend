@@ -5,6 +5,7 @@ var numbers = [10];
 var qPos;
 var option = 0;
 
+
 function addTextField(input) {
     var table = document.getElementById("myTable");
     var i = parseInt(input.id.substring(3, input.id.length));
@@ -61,17 +62,20 @@ function add_fields() {
 }
 
 
-
-
 function addScale(index) {
-    objTo = document.getElementById('questionArea');
-    var divtest = document.createElement("div"+divID);
+    var objTo = document.getElementById('questionArea');
+    var divtest = document.createElement("div"+index);
 
     divtest.innerHTML += 
-    '<input id="ex1" data-slider-id="ex1Slider" type="text"'+
-    'data-slider-min="0" data-slider-max="20" data-slider-step="1"'+
-    ' data-slider-value="14"/>';
-
+    '<div class="content">'+
+        '<h4>Enter Minimum Value</h4>'+
+        '<input type="number" min="1" max="9" class="form-control" name="question'+index+'" value="" placeholder ="Number between 1 and 9" id = Answer'+index+'/>'+
+        '<br />'+
+        '<h4>Enter Maximum Value</h4>'+
+        '<input type="number" min="2" max="10" class="form-control" name="question'+index+'" value="" placeholder ="Number between 2 and 10" id = Answer'+index+'/>'+
+        '<br />'+
+    '</div>';
+    
     objTo.appendChild(divtest);
 }
 
@@ -82,7 +86,8 @@ function addTextField(divID) {
     var counter = numberOfAnswers;
     var addButton = document.getElementById("addFieldArea");
     counter += 1;
-    questionPos = divID
+    questionPos = divID;
+    var multiple = "multiple";
 
     var questionNumber = document.createElement("label"); 
     questionNumber.innerHTML = divID;
@@ -98,13 +103,12 @@ function addTextField(divID) {
     ans.setAttribute("name", "ans");
     ans.setAttribute("id", "ans");
 
-    var qType = document.createElement("label"); 
-    qType.innerHTML = "Multiple";
-    qType.value = "Multiple";
-    //questionNumber.style.display = 'none'; 
-    qType.setAttribute("name", "multiple"+divID);
-    qType.setAttribute("id", "multiple"+divID);
-
+    var questionType = document.createElement("input");
+    questionType.innerHTML = multiple;
+    questionType.value = multiple;
+    questionType.setAttribute("name", "questionType"+divID);
+    questionType.setAttribute("id", "questionType"+divID);
+    console.log("Javascript questionType" + divID);
  
 
     divtest.innerHTML +=
@@ -123,6 +127,7 @@ function addTextField(divID) {
     objTo.appendChild(divtest);
     objTo.appendChild(ans);
     objTo.appendChild(addButton);
+    objTo.appendChild(questionType);
     //objTo.appendChild(qType);
     //objTo.appendChild(questionNumber);
 }
@@ -135,7 +140,10 @@ function addImage(divID) {
 
     // Get user search quesry for image
     divtest.innerHTML +=
-    '<input type="text" class="form-control" name="question'+divID+'Answer'+numberOfAnswers+'" value="" onchange="displayImages(this.value, '+divID+')" placeholder ="Search Images" id = Answer'+numberOfAnswers+'/>';
+    '<h5>Select an image and then retype for a different set of images.</h5>'+
+    '<input type="text" class="form-control" name="question'+divID+'Answer'+numberOfAnswers+'" '+
+    ' value="" onchange="displayImages(this.value, '+divID+')" '+
+    ' placeholder ="Search Images" id = Answer'+numberOfAnswers+'/>';
     
     objTo.appendChild(divtest);
 }
@@ -143,7 +151,6 @@ function addImage(divID) {
 function addURL(imageURL, divID, option) {
     var urlbox = document.getElementById("optionSelected"+divID+"Option"+option)
     urlbox.value = imageURL;
-
 }
 
 function displayImages(query, divID) {
@@ -159,7 +166,9 @@ function displayImages(query, divID) {
     var imageCounter = 0;
     var i = 0;
 
-    var urlselected = document.createElement("label"); 
+    var urlselected = document.createElement("label");
+    divtest.innerHTML +=
+        '<div class="flexbox">';
 
     // URL for user search image
     var URL = "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent(query);
@@ -170,26 +179,25 @@ function displayImages(query, divID) {
              counter += 1;
 
              //numberOfAnswers ++;
-             if(counter < 3) {
+             if(counter < 12) {
                 imageURL.push(hit.previewURL);
                 var temp = hit.previewURL;
                 console.log(temp);
-                    divtest.innerHTML +=
-                '<div id = "photoGallery'+divID+'>'+
-                    '<label>Div ID: '+divID+'</label>'+
-                    '<div class="radio">'+
-                            '<div class="thumbnail">'+
-                                '<input class="form-check-input"'+
-                                'value ="'+hit.previewURL+'" type = "radio"'+
-                                'name = "option" onclick = "addURL(this.value,'+divID+','+option+')">'+
-                                '<img src="'+hit.previewURL+'"  value = "'+hit.previewURL+'" class="img-rounded" alt="'+query+'"></input>'+
-                            '</div>'+
-                        '</div>'+
+                divtest.innerHTML +=
+                '<div class= "flexitem" >'+
+                    '<input class="form-check-input"'+
+                    'value ="'+hit.previewURL+'" type = "radio"'+
+                    'name = "option" onclick = "addURL(this.value,'+divID+','+option+')">'+
+                    '<img src="'+hit.previewURL+'"  value = "'+hit.previewURL+'" class="img-rounded" alt="'+query+'"></input>'+
                 '</div>';
+
              }
+
          });
+   
         divtest.innerHTML +=
-        '<input class="form-control" disabled id = "optionSelected'+divID+'Option'+option+'" value = "" placeholder = "Selected Image URL">';
+        '<input class="form-control" disabled id = "optionSelected'+divID+'Option'+option+'" value = "" placeholder = "Selected Image URL">'+
+        '</div>';
         option += 1;
     });
 

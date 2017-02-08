@@ -49,7 +49,7 @@ def add_questions(request):
             questionCounter = request.POST.get('numquestion', False)
             questionNumber = request.POST.get('questionNumber', False)
             ansNumber = request.POST.get('ans',False)
-            print("\n\n\nNumber of answers " + str(ansNumber))
+            #print("\n\n\nNumber of answers " + str(ansNumber))
 
             # save the survey title and information regarding the survey to the database.
             survey = posts.models.Post()
@@ -57,38 +57,39 @@ def add_questions(request):
             survey.dateSurvCreated = timezone.datetime.now()
             survey.numOfQuestions = questionCounter
             survey.numOfTimesCompleted = 0
-            survey.save()
 
+
+            print("\n\n\nSurvey Title: " + survey.title)
+            survey.save()
 
             # Save the question label to the database.
             while i <= int(questionCounter): 
+                #print("\n\n\nNumber of questions in the survey " + questionCounter);
                 
                 question = posts.models.Question()  
                 question.questionLabel = request.POST.get("Question" + str(i),False)
                 question.surveybelongto = survey.title
                 question.questionNumber = i
                 question.numberOfAnswers = 1
-                print("Print questionNumber " + str(i))
+                #print("Print questionNumber " + str(i))
                 question.save()
 
+                print("Question " + str(i) + " Tile: " + question.questionLabel);
+
                 while j <= int(ansNumber):
-                    print("question"+str(i)+"Answer"+str(j))
                     ans = posts.models.Answers()
                     ans.answerID = str(j)
                     ans.answerLabel = request.POST.get("question"+str(i)+"Answer"+str(j),False)
                     ans.questionNumber = i
                     ans.surveyTitle = survey.title 
                     ans.questionLabel = question.questionLabel
-                    ans.questionType = request.POST.get("multiple" + str(i), "No Choice")
-                    print(ans.questionType)
-                    
-
+                    ans.questionType = request.POST.get("questionType" + str(i), "No Choice")
+                    print("Python questionType" + str(i))
+                    print("Question " + str(i) + " type: " + ans.questionType)
                     if ans.answerLabel == False:
                         break
                         
                     ans.save()
-
-                    
                     j += 1
 
                 i += 1
