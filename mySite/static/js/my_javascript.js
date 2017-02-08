@@ -1,9 +1,9 @@
 var questions = 0;
-var numberOfAnswers = 0;
+var numberOfAnswers = 1;
 var answerCounter = 0;
 var numbers = [10];
 var qPos;
-var option = 0;
+var option = 1;
 
 
 function addTextField(input) {
@@ -19,6 +19,8 @@ function addTextField(input) {
 }
 
 function add_fields() {
+    numberOfAnswers = 1;
+    option = 1;
     questions++;
     var objTo = document.getElementById('questionArea')
     var divtest = document.createElement("div"+questions);
@@ -100,12 +102,13 @@ function addTextField(divID) {
     ans.innerHTML = numberOfAnswers;
     ans.value = numberOfAnswers;
     ans.style.display = 'none'; 
-    ans.setAttribute("name", "ans");
-    ans.setAttribute("id", "ans");
+    ans.setAttribute("name", "ans"+divID);
+    ans.setAttribute("id", "ans"+divID);
 
     var questionType = document.createElement("input");
     questionType.innerHTML = multiple;
     questionType.value = multiple;
+    questionType.style.display = 'none'; 
     questionType.setAttribute("name", "questionType"+divID);
     questionType.setAttribute("id", "questionType"+divID);
     console.log("Javascript questionType" + divID);
@@ -113,7 +116,10 @@ function addTextField(divID) {
 
     divtest.innerHTML +=
     '<div class="content">'+
-        '<input type="text" class="form-control" name="question'+divID+'Answer'+numberOfAnswers+'" value="" placeholder ="question'+divID+'Answer'+numberOfAnswers+'" id = Answer'+numberOfAnswers+'/>'+
+        '<input type="text" class="form-control"'+
+        ' name="question'+divID+'Answer'+numberOfAnswers+'" '+
+        'value="" placeholder ="question'+divID+'Answer'+numberOfAnswers+'"'+
+        ' id = Answer'+numberOfAnswers+'/>'+
         '<br />'+
     '</div>';
     numberOfAnswers ++;
@@ -121,7 +127,7 @@ function addTextField(divID) {
 
     addButton.innerHTML = '<hr />'+
     '<div id class="content">'+
-        '<input type="button" id="more_fields" onclick="addTextField('+divID+')" value="Add Text Field" class="btn btn-primary" />'+
+        '<input type="button" id="more_fields" onclick="addTextField('+divID+')" value="Add Input Field" class="btn btn-primary" />'+
     '</div>';
 
     objTo.appendChild(divtest);
@@ -143,14 +149,27 @@ function addImage(divID) {
     '<h5>Select an image and then retype for a different set of images.</h5>'+
     '<input type="text" class="form-control" name="question'+divID+'Answer'+numberOfAnswers+'" '+
     ' value="" onchange="displayImages(this.value, '+divID+')" '+
-    ' placeholder ="Search Images" id = Answer'+numberOfAnswers+'/>';
+    ' placeholder ="Search Images" id = "Answer'+numberOfAnswers+'"/>';
     
     objTo.appendChild(divtest);
 }
 
 function addURL(imageURL, divID, option) {
+    var objTo = document.getElementById('questionArea')
     var urlbox = document.getElementById("optionSelected"+divID+"Option"+option)
+    urlbox.setAttribute("id","optionSelected"+divID+"Option"+option);
+    urlbox.setAttribute("name","optionSelected"+divID + "Option"+option);
     urlbox.value = imageURL;
+
+    var urlChosen = document.createElement("input");
+    urlChosen.innerHTML = imageURL;
+    urlChosen.value = imageURL;
+    urlChosen.style.display = 'none'; 
+    urlChosen.setAttribute("name", "question"+divID+"Image"+option);
+    urlChosen.setAttribute("id", "question"+divID+"Image"+option);
+
+    objTo.appendChild(urlbox);
+    objTo.appendChild(urlChosen);
 }
 
 function displayImages(query, divID) {
@@ -165,6 +184,21 @@ function displayImages(query, divID) {
     var previewURL = '';
     var imageCounter = 0;
     var i = 0;
+    var images = "images";
+
+    var questionType = document.createElement("input");
+    questionType.innerHTML = images;
+    questionType.value = images;
+    questionType.style.display = 'none'; 
+    questionType.setAttribute("name", "questionType"+divID);
+    questionType.setAttribute("id", "questionType"+divID);
+
+    var ans = document.createElement("input"); 
+    ans.innerHTML = numberOfAnswers;
+    ans.value = numberOfAnswers;
+    ans.style.display = 'none'; 
+    ans.setAttribute("name", "ans"+divID);
+    ans.setAttribute("id", "ans"+divID);
 
     var urlselected = document.createElement("label");
     divtest.innerHTML +=
@@ -177,7 +211,6 @@ function displayImages(query, divID) {
             $.each(data.hits, function(i, hit){
              // console.log(hit.pageURL); 
              counter += 1;
-
              //numberOfAnswers ++;
              if(counter < 12) {
                 imageURL.push(hit.previewURL);
@@ -196,13 +229,19 @@ function displayImages(query, divID) {
          });
    
         divtest.innerHTML +=
-        '<input class="form-control" disabled id = "optionSelected'+divID+'Option'+option+'" value = "" placeholder = "Selected Image URL">'+
+        '<input class="form-control" disabled '+
+        ' id = "optionSelected'+divID+'Option'+option+'"'+
+        ' value = "optionSelected'+divID+'Option'+option+'" '+
+        'placeholder = "Selected Image URL">'+
         '</div>';
         option += 1;
+        numberOfAnswers += 1
     });
 
     objTo.appendChild(divtest);
     objTo.appendChild(urlselected);
+    objTo.appendChild(ans);
+    objTo.appendChild(questionType);
 }
 
 
