@@ -7,8 +7,6 @@ import posts.models
 from posts.models import Question
 from posts.models import Answers
 
-
-
 def get_name(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -96,6 +94,17 @@ def add_questions(request):
                         ans.answerLabel = request.POST.get("question"+str(i)+"Image"+str(j), "No URL")
                         print("Url " +ans.urlForImage)
 
+                    if ans.questionType == "scale":
+                        if j == 1:
+                            print("scaleValueMin"+str(i))
+                            ans.scaleMinimum = request.POST.get("scaleValueMin"+str(i), "1")
+                            print("Mimimum value: " + str(ans.scaleMinimum))
+                        if j == 2:
+                            print("scaleValueMax"+str(i))
+                            ans.scaleMaximum = request.POST.get("scaleValueMax"+str(i), "1")
+                            print("Mimimum value: " + str(ans.scaleMaximum))
+
+
                     ans.save()
                     j += 1
 
@@ -106,8 +115,8 @@ def add_questions(request):
                 i += 1
             
 
-
-            return render(request, 'sitepages/addQuestions.html', {'survey': survey})
+            results = Question.objects.filter(surveybelongto = survey.title)
+            return render(request, 'sitepages/name.html', {'results':results})
         else:
             return render(request, 'sitepages/create_survey.html')
     else:

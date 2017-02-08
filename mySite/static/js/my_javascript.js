@@ -4,6 +4,8 @@ var answerCounter = 0;
 var numbers = [10];
 var qPos;
 var option = 1;
+var selectValue1 = 0;
+var selectValue2 = 0;
 
 
 function addTextField(input) {
@@ -21,6 +23,8 @@ function addTextField(input) {
 function add_fields() {
     numberOfAnswers = 1;
     option = 1;
+    selectValue1 = 0;
+    selectValue2 = 0;
     questions++;
     var objTo = document.getElementById('questionArea')
     var divtest = document.createElement("div"+questions);
@@ -43,10 +47,10 @@ function add_fields() {
         '<div class="input-group">'+
             '<div class = "radio">'+
                 '<div class="form-check">'+
-                    '<label><input class="form-check-input" type="radio" value = "MultipleChoice" name="optradio'+questions+'" onclick="addTextField('+questions+')" >Multiple Choice</label>'+
+                    '<label><input class="form-check-input" type="radio" value = "MultipleChoice" name="optradio'+questions+'" onclick="addTextField('+questions+')" >Text Field</label>'+
                 '</div>'+
                 '<div class="form-check">'+
-                    '<label><input class="form-check-input" type="radio" value = "Scale" name="optradio'+questions+'" onclick="addScale('+questions+')">Scale</label>'+
+                    '<label><input class="form-check-input" type="radio" value = "Scale" name="optradio'+questions+'" onclick="addScale('+questions+')">Linear Scale</label>'+
                 '</div>'+
                 '<div class="form-check">'+
                     '<label><input class="form-check-input" type="radio" value = "Images" name="optradio'+questions+'" onclick="addImage('+questions+')"">Images</label>'+
@@ -63,22 +67,91 @@ function add_fields() {
     objTo.appendChild(numquestion);
 }
 
-
-function addScale(index) {
+function scaleValueMin(v, divID) {
     var objTo = document.getElementById('questionArea');
-    var divtest = document.createElement("div"+index);
-
-    divtest.innerHTML += 
-    '<div class="content">'+
-        '<h4>Enter Minimum Value</h4>'+
-        '<input type="number" min="1" max="9" class="form-control" name="question'+index+'" value="" placeholder ="Number between 1 and 9" id = Answer'+index+'/>'+
-        '<br />'+
-        '<h4>Enter Maximum Value</h4>'+
-        '<input type="number" min="2" max="10" class="form-control" name="question'+index+'" value="" placeholder ="Number between 2 and 10" id = Answer'+index+'/>'+
-        '<br />'+
-    '</div>';
     
+    var scaleValue = document.createElement("input");
+    scaleValue.setAttribute("name", "scaleValueMin"+divID);
+    scaleValue.setAttribute("id", "scaleValueMin"+divID);
+    scaleValue.innerHTML = v;
+    scaleValue.value = v;
+    scaleValue.style.display = 'none';
+    console.log("Javascript: scaleValueMin"+divID);
+
+    objTo.appendChild(scaleValue);
+
+}
+
+function scaleValueMax(v, divID) {
+    var objTo = document.getElementById('questionArea');
+    var scaleValue = document.createElement("input");
+    scaleValue.setAttribute("name", "scaleValueMax"+divID);
+    scaleValue.setAttribute("id", "scaleValueMax"+divID);
+    scaleValue.innerHTML = v;
+    scaleValue.value = v;
+    scaleValue.style.display = 'none';
+    console.log("Maximum Scale Value " + scaleValue.value);
+
+    objTo.appendChild(scaleValue);
+}
+
+function addScale(divID) {
+    var objTo = document.getElementById('questionArea');
+    var divtest = document.createElement("div"+divID);
+    var select = 1;
+    var scale = "scale";
+
+    var questionType = document.createElement("input");
+    questionType.innerHTML = scale;
+    questionType.value = scale;
+    questionType.style.display = 'none'; 
+    questionType.setAttribute("name", "questionType"+divID);
+    questionType.setAttribute("id", "questionType"+divID);
+    console.log("Javascript questionType" + divID + " is " + questionType.value );
+
+
+    var ans = document.createElement("input"); 
+    ans.innerHTML = 2;
+    ans.value = 2;
+    ans.style.display = 'none'; 
+    ans.setAttribute("name", "ans"+divID);
+    ans.setAttribute("id", "ans"+divID);
+ 
+    divtest.innerHTML += 
+        '<label>Choose Values </label>'+
+        '<br>'+
+        '<div class="flexbox">'+
+            '<div class= "flexitem" >'+
+                '<select id = "optionDropdown'+divID+'_select'+select+'" '+
+                'onChange="scaleValueMin(this.value,'+divID+')">'+
+                    '<option value="0">0</option>'+
+                    '<option selected="selected" value="1">1</option>'+
+                '</select>'+
+            '</div>'+
+            '<div class= "flexitem" >'+
+                '<label id = "spacing"> to </label>'+
+            '</div>'+
+                '<div class= "flexitem" >'+
+                '<select id = "optionDropdown'+divID+'_select'+(select++)+'" '+
+                'onChange="scaleValueMax(this.value,'+divID+')">'+
+                    '<option value="1">1</option>'+
+                    '<option value="2">2</option>'+
+                    '<option value="3">3</option>'+
+                    '<option value="4">4</option>'+
+                    '<option selected="selected" value="5">5</option>'+
+                    '<option value="6">6</option>'+
+                    '<option value="7">7</option>'+
+                    '<option value="8">8</option>'+
+                    '<option value="9">9</option>'+
+                    '<option value="10">10</option>'+
+                '</select>'+
+                '</div>'+
+            '</div>'+
+        '</div>';
+
     objTo.appendChild(divtest);
+    objTo.appendChild(ans);
+    objTo.appendChild(questionType);
 }
 
 function addTextField(divID) {
@@ -118,7 +191,7 @@ function addTextField(divID) {
     '<div class="content">'+
         '<input type="text" class="form-control"'+
         ' name="question'+divID+'Answer'+numberOfAnswers+'" '+
-        'value="" placeholder ="question'+divID+'Answer'+numberOfAnswers+'"'+
+        'value="" placeholder ="Enter Answer"'+
         ' id = Answer'+numberOfAnswers+'/>'+
         '<br />'+
     '</div>';
@@ -223,9 +296,7 @@ function displayImages(query, divID) {
                     'name = "option" onclick = "addURL(this.value,'+divID+','+option+')">'+
                     '<img src="'+hit.previewURL+'"  value = "'+hit.previewURL+'" class="img-rounded" alt="'+query+'"></input>'+
                 '</div>';
-
              }
-
          });
    
         divtest.innerHTML +=
