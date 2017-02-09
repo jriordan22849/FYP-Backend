@@ -19,7 +19,6 @@
     		<div class="navbar-header">
       			<a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
       			<a class="navbar-brand" href="{% url 'create_survey' %}">Create a Survey</a>
-      			<a class="navbar-brand" href="#">View Results</a>
     		</div>
  
       		</div>
@@ -33,11 +32,12 @@
     <form action="" method="post">
     {% load static %}
     {% csrf_token %}
-    <h2>Survey Title: {{ results.surveybelongto }}</h2>
-    {% for day in results %}
-    	{{ day.questionLabel }}
-	{% endfor %}
+	{% for post in posts.all %}
+		<h2>Survey Title: {{ post.title }}</h2>
+		<br>
 
+
+    {% endfor %}
 
 
     </form>

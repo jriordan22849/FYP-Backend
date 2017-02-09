@@ -6,6 +6,17 @@ from .forms import NameForm
 import posts.models
 from posts.models import Question
 from posts.models import Answers
+from posts.models import Post
+
+def view_results(request):
+    return HttpResponse("Allah Alkbar")
+
+def post_detail(request, post_id):
+    obj = Post.objects.get(pk=post_id)
+    questions = Question.objects.filter(surveybelongto=obj.title).values()
+    answers = Answers.objects.filter(surveyTitle = obj.title).values()
+    
+    return render(request, 'sitepages/results.html',{'obj':obj, 'questions':questions, 'answers':answers}  )
 
 def get_name(request):
     # if this is a POST request we need to process the form data
@@ -28,14 +39,11 @@ def get_name(request):
 def surveyProcess(request):
     return HttpResponse("success")
 
-
 def create_survey(request):
     return render(request, 'sitepages/create_survey.html')
 
 def view_survey(request):
     return HttpResponse("Woofghdfgla")
-
-
 
 def add_questions(request):
     i = 1
@@ -115,7 +123,7 @@ def add_questions(request):
                 i += 1
             
 
-            results = Question.objects.filter(surveybelongto = survey.title)
+            results = Post.objects.order_by('title')
             return render(request, 'sitepages/name.html', {'results':results})
         else:
             return render(request, 'sitepages/create_survey.html')

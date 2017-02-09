@@ -91,7 +91,6 @@ function scaleValueMax(v, divID) {
     scaleValue.value = v;
     scaleValue.style.display = 'none';
     console.log("Maximum Scale Value " + scaleValue.value);
-
     objTo.appendChild(scaleValue);
 }
 
@@ -285,7 +284,7 @@ function displayImages(query, divID) {
              // console.log(hit.pageURL); 
              counter += 1;
              //numberOfAnswers ++;
-             if(counter < 12) {
+             if(counter < 9) {
                 imageURL.push(hit.previewURL);
                 var temp = hit.previewURL;
                 console.log(temp);

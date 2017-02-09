@@ -17,7 +17,6 @@
     		<div class="navbar-header">
       			<a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
       			<a class="navbar-brand" href="{% url 'create_survey' %}">Create a Survey</a>
-      			<a class="navbar-brand" href="#">View Results</a>
     		</div>
  
       		</div>
@@ -25,34 +24,38 @@
 	</nav>
   <body style = "background-color: #f9fdff">
  	<div class="container-fluid">
-    <div class="jumbotron" style = "background-color: #99e8ff">
+    <div class="jumbotron" style = "background-color: #94B0DA">
       <h1 class = "text-center">Welcome to SurvAll</h1>
   </div>
 		
     <br />
-			<table class ="table" border='2'>
+    <div class="panel panel-default">
+    <div class="panel-heading">
+    </div>
+			<table style = "background-color: #FFFFFF" class ="table" border='2'>
 			    <tr>
                		<th>Survey Name</th>
                		<th>Date Created </th>
                		<th>Number of Questions</th>
                		<th>Times Completed</th>
-                  <th></th>
+                  <th>Result</th>
                	</tr>
 				  {% for post in posts.all %}
 				  <tr>
-               		<td>{{ post.title}}</td>
-               		<td>{{ post.dateFormat}}</td>
-               		<td>{{ post.numOfQuestions|floatformat:0 }}</td>
-               		<td>{{ post.numOfTimesCompleted|floatformat:0 }}</td>
-                  <td><button><span class ="glyphicon glyphicon-file"></span></button></td>
-
-
+               	<td>{{ post.title }}</td>
+               	<td>{{ post.dateFormat }}</td>	
+                <td>{{ post.numOfQuestions|floatformat:0 }}</td>
+               	<td>{{ post.numOfTimesCompleted|floatformat:0 }}</td>
+                <td><a href="{% url 'post_detail' post.id %}">
+                <button class="btn btn-default btn-lg"><span class ="glyphicon glyphicon-stats"></span></button></a></td>
           </tr>
+
+
           {% endfor %}
                
 			</table>  
-
-
+      </div>
+      </div>
 	</div>
 
 
