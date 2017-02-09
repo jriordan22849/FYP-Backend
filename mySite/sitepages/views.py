@@ -106,9 +106,11 @@ def add_questions(request):
                         if j == 1:
                             print("scaleValueMin"+str(i))
                             ans.scaleMinimum = request.POST.get("scaleValueMin"+str(i), "1")
+                            ans.scaleMaximum = request.POST.get("scaleValueMax"+str(i), "1")
                             print("Mimimum value: " + str(ans.scaleMinimum))
                         if j == 2:
                             print("scaleValueMax"+str(i))
+                            ans.scaleMinimum = request.POST.get("scaleValueMin"+str(i), "1")
                             ans.scaleMaximum = request.POST.get("scaleValueMax"+str(i), "1")
                             print("Mimimum value: " + str(ans.scaleMaximum))
 
@@ -123,8 +125,10 @@ def add_questions(request):
                 i += 1
             
 
-            results = Post.objects.order_by('title')
-            return render(request, 'sitepages/name.html', {'results':results})
+            #obj = Post.objects.filter(title=survey.title).values()
+            #questions = Question.objects.filter(surveybelongto=obj.title).values()
+            #answers = Answers.objects.filter(surveyTitle = obj.title).values()
+            return render(request, 'sitepages/name.html')
         else:
             return render(request, 'sitepages/create_survey.html')
     else:

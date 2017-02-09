@@ -39,21 +39,32 @@
       {% for question in questions.all %}
         <br>
         <h3>Question {{ question.questionNumber }}. {{ question.questionLabel }}</h3>
-        <h4>Num of Answers for {{ question.questionNumber }} is {{ question.numberOfAnswers}}  </h4>
+        <h4>Num of Answers for Question {{ question.questionNumber }} is {{ question.numberOfAnswers}}  </h4>
+        
         {% for answer in answers.all %}
+
           {% if answer.questionNumber == question.questionNumber %}
             {% if answer.questionType == "multiple" %}
               <ul>
                <li>{{ answer.answerLabel }}</li>
               </ul>
             {% endif %}
+
             {% if answer.questionType == "scale" %}
-              <h4>Minimum Scale: {{ answer.scaleMinimum }}</h4>
-              <br>
-              <h4>Maximum Scale: {{ answer.scaleMaximum }}</h4>
+            {% ifchanged %}
+                  <h4>Minimum Scale: {{ answer.scaleMinimum }}</h4>
+                  <h4>Maximum Scale: {{ answer.scaleMaximum }}</h4>
+            {% endifchanged %}
+            {% endif %}
+
+            {% if answer.questionType == "images" %}
+              <img src={{ answer.urlForImage}}>
+              <h4>Answer {{ answer.answerID }}</h4>
             {% endif %}
           {% endif %}
+
         {% endfor %}
+
         <hr>
 
       {% endfor %}

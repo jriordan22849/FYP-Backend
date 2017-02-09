@@ -10,38 +10,66 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <title>SurvAll</title>
+    <title>Survey Results </title>
 
   </head>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-  		<div class="container-fluid">
-    		<div class="navbar-header">
-      			<a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
-      			<a class="navbar-brand" href="{% url 'create_survey' %}">Create a Survey</a>
-    		</div>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
+            <a class="navbar-brand" href="{% url 'create_survey' %}">Create a Survey</a>
+        </div>
  
-      		</div>
-  		</div>
-	</nav>
+          </div>
+      </div>
+  </nav>
   <body>
- 	<div class="container-fluid">
-    <div class="jumbotron">
-     <h1 class = "text-center">Survey Created</h1>
+  <div class="container-fluid">
+    <div class="jumbotron" style="background-color: #94B0DA">
+     <h1 class = "text-center">Survey Results</h1>
     </div>
     <form action="" method="post">
-    {% load static %}
-    {% csrf_token %}
-	{% for post in posts.all %}
-		<h2>Survey Title: {{ post.title }}</h2>
-		<br>
+      {% csrf_token %}
+      <div class = "text-center">
+        <h2>{{ obj.title }} </h2>
+      </div>
+      <hr>
 
+      {% for question in questions.all %}
+        <br>
+        <h3>Question {{ question.questionNumber }}. {{ question.questionLabel }}</h3>
+        <h4>Num of Answers for Question {{ question.questionNumber }} is {{ question.numberOfAnswers}}  </h4>
+        
+        {% for answer in answers.all %}
 
-    {% endfor %}
+          {% if answer.questionNumber == question.questionNumber %}
+            {% if answer.questionType == "multiple" %}
+              <ul>
+               <li>{{ answer.answerLabel }}</li>
+              </ul>
+            {% endif %}
 
+            {% if answer.questionType == "scale" %}
+                  <h4>Minimum Scale: {{ answer.scaleMinimum }}</h4>
+                  <h4>Maximum Scale: {{ answer.scaleMaximum }}</h4>
+            {% endif %}
+
+            {% if answer.questionType == "images" %}
+              <img src={{ answer.urlForImage}}>
+              <h4>Answer {{ answer.answerID }}</h4>
+            {% endif %}
+          {% endif %}
+
+        {% endfor %}
+
+        <hr>
+
+      {% endfor %}
+      </div>
 
     </form>
-	</div>
+  </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
