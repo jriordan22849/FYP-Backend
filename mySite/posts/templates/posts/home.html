@@ -35,7 +35,7 @@
     <div class="panel-heading">
     <form action = "{% url 'query_survey' %}" method="post">
     {% csrf_token %}
-    <input type="text" name="search_surveys" id ="search_surveys" class="form-control" placeholder="Search for Survey"></input>
+    <input type="text" name="search_surveys" id ="search_surveys" class="form-control" placeholder="Search for Survey by Title"></input>
     <br>
 
       <button class="btn btn-primary btn-default btn">Search</button>

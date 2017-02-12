@@ -33,6 +33,7 @@ class Answers(models.Model):
 	scaleMinimum = models.IntegerField( default = '1')
 	scaleMaximum = models.IntegerField( default = '1')
 	urlForImage = models.CharField(max_length = 250, default = "URL")
+	answerCounter = models.IntegerField( default = '0')
 
 
 

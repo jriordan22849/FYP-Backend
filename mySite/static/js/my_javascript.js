@@ -284,21 +284,23 @@ function displayImages(query, divID) {
              // console.log(hit.pageURL); 
              counter += 1;
              //numberOfAnswers ++;
-             if(counter < 9) {
+             if(counter < 12) {
                 imageURL.push(hit.previewURL);
                 var temp = hit.previewURL;
                 console.log(temp);
                 divtest.innerHTML +=
-                '<div class= "flexitem>'+
+                '<div class= "flexitem" >'+
                     '<input class="form-check-input"'+
                     'value ="'+hit.previewURL+'" type = "radio"'+
                     'name = "option" onclick = "addURL(this.value,'+divID+','+option+')">'+
                     '<img src="'+hit.previewURL+'"  value = "'+hit.previewURL+'" class="img-rounded" alt="'+query+'"></input>'+
                 '</div>';
+                
              }
          });
    
         divtest.innerHTML +=
+        '<br>'+
         '<input class="form-control" disabled '+
         ' id = "optionSelected'+divID+'Option'+option+'"'+
         ' value = "optionSelected'+divID+'Option'+option+'" '+

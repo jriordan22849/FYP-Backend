@@ -60,6 +60,11 @@ def add_questions(request):
     answers = []
     if request.method == "POST":
         if request.POST["surveyName"]:
+            if Post.objects.filter(title=request.POST["surveyName"]).exists():
+                print("It does exist")
+                return HttpResponse("Survey Title: " + request.POST["surveyName"] + " already exists")
+            else:
+                print("it doesnt exist")
             questionCounter = request.POST.get('numquestion', False)
             questionNumber = request.POST.get('questionNumber', False)
             ansNumber = request.POST.get('ans',False)
@@ -133,10 +138,12 @@ def add_questions(request):
                 i += 1
             
 
-            #obj = Post.objects.filter(title=survey.title).values()
-            #questions = Question.objects.filter(surveybelongto=obj.title).values()
-            #answers = Answers.objects.filter(surveyTitle = obj.title).values()
-            return render(request, 'sitepages/name.html')
+            # Pass the the entered survey information to preview.html. Get the survey by the id of the survey.
+            obj = Post.objects.get(pk =survey.id)
+            questions = Question.objects.filter(surveybelongto=obj.title).values()
+            answers = Answers.objects.filter(surveyTitle = obj.title).values()
+
+            return render(request, 'sitepages/preview.html',{'obj':obj, 'questions':questions, 'answers':answers} )
         else:
             return render(request, 'sitepages/create_survey.html')
     else:

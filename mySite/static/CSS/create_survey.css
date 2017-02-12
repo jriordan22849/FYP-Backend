@@ -24,19 +24,8 @@ select {
 
 }
 
-.flexboxSelected {
-	flex-direction: row;
-  	display: flex;
-  	flex-wrap: wrap;
-}
-
-.flexitemSelected {
-  border-width: 1px;
-  border-style: none;
-  width: 150px;
-  display: inline-block;
-  margin: 0 30px 0 0;
-
+.resultPos {
+   margin: 0 50px 0 0;
 }
 
 #parent {
