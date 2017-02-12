@@ -9,7 +9,15 @@ from posts.models import Answers
 from posts.models import Post
 
 def view_results(request):
-    return HttpResponse("Allah Alkbar")
+    return HttpResponse("")
+
+
+def query_survey(request):
+    query = request.POST.get('search_surveys', "")
+    # search for results that contain a string. Pass the results back to the home page.
+    posts = Post.objects.filter(title__icontains= query)
+    return render(request,'posts/home.html', {'posts':posts})
+
 
 def post_detail(request, post_id):
     obj = Post.objects.get(pk=post_id)

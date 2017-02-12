@@ -20,6 +20,7 @@ import sitepages.views
 from django.conf.urls.static import static
 from django.conf import settings
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',posts.views.home, name = "home"),
@@ -27,6 +28,7 @@ urlpatterns = [
     url(r'^create_survey/',sitepages.views.create_survey, name = "create_survey"),
     url(r'view/',sitepages.views.view_survey, name = "view_survey"),
     url(r'add_question/',sitepages.views.add_questions, name = "add_questions"),
+    url(r'^query_survey/',sitepages.views.query_survey, name = "query_survey"),
     url(r'your_name/',sitepages.views.get_name, name = "your_name"),
     url(r'^view_results/',sitepages.views.view_results, name = "view_results"),
     url(r'^post_detail/(?P<post_id>[0-9]+)/$',sitepages.views.post_detail, name="post_detail"),

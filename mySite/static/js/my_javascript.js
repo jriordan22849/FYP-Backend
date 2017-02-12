@@ -188,7 +188,7 @@ function addTextField(divID) {
 
     divtest.innerHTML +=
     '<div class="content">'+
-        '<input type="text" class="form-control"'+
+        '<input type="text" class="form-control" required="required"'+
         ' name="question'+divID+'Answer'+numberOfAnswers+'" '+
         'value="" placeholder ="Enter Answer"'+
         ' id = Answer'+numberOfAnswers+'/>'+
@@ -289,7 +289,7 @@ function displayImages(query, divID) {
                 var temp = hit.previewURL;
                 console.log(temp);
                 divtest.innerHTML +=
-                '<div class= "flexitem" >'+
+                '<div class= "flexitem>'+
                     '<input class="form-check-input"'+
                     'value ="'+hit.previewURL+'" type = "radio"'+
                     'name = "option" onclick = "addURL(this.value,'+divID+','+option+')">'+

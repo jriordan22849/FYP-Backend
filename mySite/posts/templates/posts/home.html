@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% load static %}
+    <script src = "{% static 'js/search_surveys.js' %}"> </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,8 +33,32 @@
     <br />
     <div class="panel panel-default">
     <div class="panel-heading">
+    <form action = "{% url 'query_survey' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="search_surveys" id ="search_surveys" class="form-control" placeholder="Search for Survey"></input>
+    <br>
+
+      <button class="btn btn-primary btn-default btn">Search</button>
+      <button class="btn btn-default btn" action="{% url 'view_survey' %}">Reset</button>
+    </form>
     </div>
-			<table style = "background-color: #FFFFFF" class ="table" border='2'>
+
+        
+
+
+      <div id="demo" class="collapse in text-center">
+        <h3>Download the IOS Application to complete the Surveys</h3>
+      </div>
+
+      <br>
+
+      <button class="btn btn-default btn-lg" data-toggle="collapse" data-target="#demo"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+
+
+      <br>
+      <br>
+      <div id = "tableResults">
+			<table style = "background-color: #FFFFFF" class ="table" border='2' name ="survey_table" id = "survey_table">
 			    <tr>
                		<th>Survey Name</th>
                		<th>Date Created </th>
@@ -54,6 +80,7 @@
           {% endfor %}
                
 			</table>  
+      </div>
       </div>
       </div>
 	</div>
