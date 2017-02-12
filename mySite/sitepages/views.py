@@ -8,6 +8,7 @@ from posts.models import Question
 from posts.models import Answers
 from posts.models import Post
 
+   
 def view_results(request):
     return HttpResponse("")
 
