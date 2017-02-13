@@ -18,9 +18,9 @@ def surveyData(request):
 # Convert the question data to json
 def questionData(request):
 	question = serializers.serialize('json', Question.objects.all())
-	return HttpResponse(question)
+	return HttpResponse('{ "dataQuestion": '+question+'}')
 
 # Convert the answer data to json
 def answerData(request):
 	answers = serializers.serialize('json', Answers.objects.all())
-	return HttpResponse(answers)
+	return HttpResponse('{ "answers": '+survey+'}')
