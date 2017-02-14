@@ -23,4 +23,4 @@ def questionData(request):
 # Convert the answer data to json
 def answerData(request):
 	answers = serializers.serialize('json', Answers.objects.all())
-	return HttpResponse('{ "data": '+survey+'}')
+	return HttpResponse('{ "data": '+answers+'}')
