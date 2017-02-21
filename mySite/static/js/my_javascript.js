@@ -47,26 +47,29 @@ function add_fields() {
         '<h4>Choose Answer Type:</h4>'+
         '<br />'+
         '<div class="input-group">'+
-        '<div class="flexitem">'+
+        '<div class="flexbox">'+
             '<div class = "radio">'+
-                '<div class="form-check">'+
+                '<div class="flexitem">'+
                     '<label>'+
-                    '<input class="form-check-input" type="radio" value = "MultipleChoice" name="optradio'+questions+'" onclick="addTextField('+questions+')" >Text Field</label>'+
+                    '<input class="form-check-input" type="radio" value = "MultipleChoice" name="optradio'+questions+'" onclick="addTextField('+questions+')" >Text Fields</label>'+
                 '</div>'+
-                '<div class="form-check">'+
+                '<div class="flexitem">'+
                     '<label><input class="form-check-input" type="radio" value = "Scale" name="optradio'+questions+'" onclick="addScale('+questions+')">Linear Scale</label>'+
                 '</div>'+
-                '<div class="form-check">'+
+                '<div class="flexitem">'+
                     '<label><input class="form-check-input" type="radio" value = "Images" name="optradio'+questions+'" onclick="addImage('+questions+')"">Images</label>'+
                  '</div>'+
-                '<div class="form-check">'+
+                '<div class="flexitem">'+
                     '<label><input class="form-check-input" type="radio" value = "CheckBoxes" name="optradio'+questions+'" onclick="addCheckBox('+questions+')" ">Check Boxes</label>'+
                  '</div>'+
-                '<div class="form-check">'+
+                '<div class="flexitem">'+
                     '<label><input class="form-check-input" type="radio" value = "shortAnswerInput" name="optradio'+questions+'" onclick="shortText('+questions+')"">Input Text Field</label>'+
                  '</div>'+
-                '<div class="form-check">'+
+                '<div class="flexitem">'+
                     '<label><input class="form-check-input" type="radio" value = "DateAnswer" name="optradio'+questions+'" onclick="dateOption('+questions+')"">Date</label>'+
+                 '</div>'+
+                 '<div class="flexitem">'+
+                    '<label><input class="form-check-input" type="radio" value = "timeAnswer" name="optradio'+questions+'" onclick="timeOption('+questions+')"">Time</label>'+
                  '</div>'+
             '</div>'+
         '</div>'+
@@ -100,7 +103,36 @@ function dateOption(divID) {
     ans.setAttribute("name", "ans"+divID);
     ans.setAttribute("id", "ans"+divID);
 
-    date.innerHTML += '<label>Day/Month/Year</label>'
+    date.innerHTML += '<br>'+
+    '<label>Day/Month/Year</label>'
+    objTo.appendChild(ans);
+    objTo.appendChild(date)
+    objTo.appendChild(questionType);
+
+}
+
+function timeOption(divID) {
+    var objTo = document.getElementById('questionArea');
+    var date = document.createElement("div"+divID);
+
+    var dataType = "time";
+
+    var questionType = document.createElement("input");
+    questionType.innerHTML = dataType;
+    questionType.value = dataType;
+    questionType.style.display = 'none'; 
+    questionType.setAttribute("name", "questionType"+divID);
+    questionType.setAttribute("id", "questionType"+divID);
+
+    var ans = document.createElement("input"); 
+    ans.innerHTML = 1;
+    ans.value = 1;
+    ans.style.display = 'none'; 
+    ans.setAttribute("name", "ans"+divID);
+    ans.setAttribute("id", "ans"+divID);
+
+    date.innerHTML += '<br>'+
+    '<label>Hour:Minutes</label>'
     objTo.appendChild(ans);
     objTo.appendChild(date)
     objTo.appendChild(questionType);

@@ -82,6 +82,15 @@
             </div>
             {% endif %}
 
+            {% if answer.questionType == "time" %}
+            <div style="width:800px; margin:0 auto;">
+              <br>
+              <ul class = "text-left">
+               <li>Time Answer</li>
+              </ul>
+            </div>
+            {% endif %}
+
             {% if answer.questionType == "text" %}
             <div style="width:800px; margin:0 auto;">
               <br>

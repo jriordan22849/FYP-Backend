@@ -136,7 +136,10 @@ def add_questions(request):
 
                     if ans.questionType == "date":
                         print("Question " + str(i) + " type: " + ans.questionType)
-     
+                    
+                    if ans.questionType == "time":
+                        print("Question " + str(i) + " type: " + ans.questionType)
+
                     if ans.questionType == "text":
                         print("Question " + str(i) + " type: " + ans.questionType)
 
