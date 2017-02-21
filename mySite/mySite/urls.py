@@ -36,4 +36,5 @@ urlpatterns = [
     url(r'^answerData/',serverside.views.answerData, name = "answerData"),
     url(r'^view_results/',sitepages.views.view_results, name = "view_results"),
     url(r'^post_detail/(?P<post_id>[0-9]+)/$',sitepages.views.post_detail, name="post_detail"),
+    url(r'post_answers/',posts.views.postAnswers, name = "postAnswers")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

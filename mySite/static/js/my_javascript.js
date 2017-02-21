@@ -8,6 +8,7 @@ var selectValue1 = 0;
 var selectValue2 = 0;
 
 
+
 function addTextField(input) {
     var table = document.getElementById("myTable");
     var i = parseInt(input.id.substring(3, input.id.length));
@@ -36,24 +37,36 @@ function add_fields() {
     numquestion.setAttribute("name", "numquestion");
     numquestion.setAttribute("id", "numquestion");
 
+
     divtest.innerHTML = '<hr />'+
     '<div id class="content">'+
         '<h3>Enter Question '+questions+'</h3>'+
         '<br />'+
         '<input type="text" class="form-control" name="Question'+questions+'" value="" placeholder ="Question '+questions+'" id = Question'+questions+'/>'+
         '<br />'+
-        '<h4>Choose Answer Type</h4>'+
+        '<h4>Choose Answer Type:</h4>'+
         '<br />'+
         '<div class="input-group">'+
+        '<div class="flexitem">'+
             '<div class = "radio">'+
                 '<div class="form-check">'+
-                    '<label><input class="form-check-input" type="radio" value = "MultipleChoice" name="optradio'+questions+'" onclick="addTextField('+questions+')" >Text Field</label>'+
+                    '<label>'+
+                    '<input class="form-check-input" type="radio" value = "MultipleChoice" name="optradio'+questions+'" onclick="addTextField('+questions+')" >Text Field</label>'+
                 '</div>'+
                 '<div class="form-check">'+
                     '<label><input class="form-check-input" type="radio" value = "Scale" name="optradio'+questions+'" onclick="addScale('+questions+')">Linear Scale</label>'+
                 '</div>'+
                 '<div class="form-check">'+
                     '<label><input class="form-check-input" type="radio" value = "Images" name="optradio'+questions+'" onclick="addImage('+questions+')"">Images</label>'+
+                 '</div>'+
+                '<div class="form-check">'+
+                    '<label><input class="form-check-input" type="radio" value = "CheckBoxes" name="optradio'+questions+'" onclick="addCheckBox('+questions+')" ">Check Boxes</label>'+
+                 '</div>'+
+                '<div class="form-check">'+
+                    '<label><input class="form-check-input" type="radio" value = "shortAnswerInput" name="optradio'+questions+'" onclick="shortText('+questions+')"">Input Text Field</label>'+
+                 '</div>'+
+                '<div class="form-check">'+
+                    '<label><input class="form-check-input" type="radio" value = "DateAnswer" name="optradio'+questions+'" onclick="dateOption('+questions+')"">Date</label>'+
                  '</div>'+
             '</div>'+
         '</div>'+
@@ -65,6 +78,109 @@ function add_fields() {
     
     objTo.appendChild(divtest);
     objTo.appendChild(numquestion);
+}
+
+function dateOption(divID) {
+    var objTo = document.getElementById('questionArea');
+    var date = document.createElement("div"+divID);
+
+    var dataType = "date";
+
+    var questionType = document.createElement("input");
+    questionType.innerHTML = dataType;
+    questionType.value = dataType;
+    questionType.style.display = 'none'; 
+    questionType.setAttribute("name", "questionType"+divID);
+    questionType.setAttribute("id", "questionType"+divID);
+
+    var ans = document.createElement("input"); 
+    ans.innerHTML = 1;
+    ans.value = 1;
+    ans.style.display = 'none'; 
+    ans.setAttribute("name", "ans"+divID);
+    ans.setAttribute("id", "ans"+divID);
+
+    date.innerHTML += '<label>Day/Month/Year</label>'
+    objTo.appendChild(ans);
+    objTo.appendChild(date)
+    objTo.appendChild(questionType);
+
+}
+
+function addCheckBox(divID) {
+    var objTo = document.getElementById('questionArea');
+    var checkBox = document.createElement("div"+divID);
+    var addButton = document.getElementById("addFieldArea");
+
+    var answerType = "checkBox";
+
+    var questionNumber = document.createElement("label"); 
+    questionNumber.innerHTML = divID;
+    questionNumber.value = divID;
+    //questionNumber.style.display = 'none'; 
+    questionNumber.setAttribute("name", "questionNumber");
+    questionNumber.setAttribute("id", "questionNumber");
+
+    var ans = document.createElement("input"); 
+    ans.innerHTML = numberOfAnswers;
+    ans.value = numberOfAnswers;
+    ans.style.display = 'none'; 
+    ans.setAttribute("name", "ans"+divID);
+    ans.setAttribute("id", "ans"+divID);
+
+    var questionType = document.createElement("input");
+    questionType.innerHTML = answerType;
+    questionType.value = answerType;
+    questionType.style.display = 'none'; 
+    questionType.setAttribute("name", "questionType"+divID);
+    questionType.setAttribute("id", "questionType"+divID);
+ 
+    checkBox.innerHTML +=
+    '<div class="content">'+
+        '<span><input type="text" class="form-control" required="required"'+
+        ' name="question'+divID+'Answer'+numberOfAnswers+'" '+
+        'value="" placeholder ="Enter CheckBox Option"'+
+        ' id = Answer'+numberOfAnswers+'/></span>'+
+        '<br />'+
+    '</div>';
+    numberOfAnswers ++;
+
+    addButton.innerHTML = '<hr />'+
+    '<div id class="content">'+
+        '<input type="button" id="more_fields" onclick="addCheckBox('+divID+')" value="Add Checkbox Option" class="btn btn-primary" />'+
+    '</div>';
+
+    objTo.appendChild(checkBox);
+    objTo.appendChild(ans);
+    objTo.appendChild(addButton);
+    objTo.appendChild(questionType);
+}
+
+function shortText(divID) {
+    var objTo = document.getElementById('questionArea');
+    var inputArea = document.createElement("div"+divID)
+    inputArea.innerHTML = '<label>Text Box Field</label>';
+
+    var answerType = "text";
+
+    var questionType = document.createElement("input");
+    questionType.innerHTML = answerType;
+    questionType.value = answerType;
+    questionType.style.display = 'none'; 
+    questionType.setAttribute("name", "questionType"+divID);
+    questionType.setAttribute("id", "questionType"+divID);
+
+    var ans = document.createElement("input"); 
+    ans.innerHTML = 1;
+    ans.value = 1;
+    ans.style.display = 'none'; 
+    ans.setAttribute("name", "ans"+divID);
+    ans.setAttribute("id", "ans"+divID);
+    
+    objTo.appendChild(ans);
+    objTo.appendChild(inputArea)
+    objTo.appendChild(questionType);
+
 }
 
 function scaleValueMin(v, divID) {
@@ -284,7 +400,7 @@ function displayImages(query, divID) {
              // console.log(hit.pageURL); 
              counter += 1;
              //numberOfAnswers ++;
-             if(counter < 12) {
+             if(counter < 9) {
                 imageURL.push(hit.previewURL);
                 var temp = hit.previewURL;
                 console.log(temp);
@@ -301,6 +417,7 @@ function displayImages(query, divID) {
    
         divtest.innerHTML +=
         '<br>'+
+         '<br>'+
         '<input class="form-control" disabled '+
         ' id = "optionSelected'+divID+'Option'+option+'"'+
         ' value = "optionSelected'+divID+'Option'+option+'" '+

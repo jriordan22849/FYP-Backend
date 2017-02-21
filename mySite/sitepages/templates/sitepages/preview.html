@@ -18,6 +18,7 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
   		<div class="container-fluid">
     		<div class="navbar-header">
+            <a class="navbar-brand active" href="{% url 'create_survey' %}">Login</a>
       			<a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
       			<a class="navbar-brand" href="{% url 'create_survey' %}">Create a Survey</a>
     		</div>
@@ -41,8 +42,7 @@
       {% csrf_token %}
       <div class = "text-center">
         <h2>Survey Title: {{ obj.title }} </h2>
-        <h4 class=text-left>Number of Times completed: {{ obj.numOfTimesCompleted }}</h4>
-        <h4 class=text-left>Number of Questions: {{ obj.numOfQuestions }}
+        <h4>Number of Questions: {{ obj.numOfQuestions }}
         </h4>
       </div>
       <hr>
@@ -60,6 +60,33 @@
               <br>
               <ul class = "text-left">
                <li>{{ answer.answerLabel }}</li>
+              </ul>
+            </div>
+            {% endif %}
+
+            {% if answer.questionType == "checkBox" %}
+            <div style="width:800px; margin:0 auto;">
+              <br>
+              <ul class = "text-left">
+               <li>{{ answer.answerLabel }}</li>
+              </ul>
+            </div>
+            {% endif %}
+
+            {% if answer.questionType == "date" %}
+            <div style="width:800px; margin:0 auto;">
+              <br>
+              <ul class = "text-left">
+               <li>Date Answer</li>
+              </ul>
+            </div>
+            {% endif %}
+
+            {% if answer.questionType == "text" %}
+            <div style="width:800px; margin:0 auto;">
+              <br>
+              <ul class = "text-left">
+               <li>Text Field for person completing this question</li>
               </ul>
             </div>
             {% endif %}

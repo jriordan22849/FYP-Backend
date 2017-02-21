@@ -1,21 +1,26 @@
-
 window.onload = function () {
-	var chart = new CanvasJS.Chart("chartContainer", {
-		theme: "theme2",//theme1
+	var chart = new CanvasJS.Chart("chartContainer",
+	{
 		title:{
-			text: "Result"              
+			text: "Gaming Consoles Sold in 2012"
 		},
-		animationEnabled: false,   // change to true
-		data: [              
+		legend: {
+			maxWidth: 350,
+			itemWidth: 120
+		},
+		data: [
 		{
-			// Change type to "bar", "area", "spline", "pie",etc.
-			type: "bar",
+			type: "pie",
+			showInLegend: true,
+			legendText: "{indexLabel}",
 			dataPoints: [
-				{ label: "apple",  y: 10  },
-				{ label: "orange", y: 15  },
-				{ label: "banana", y: 25  },
-				{ label: "mango",  y: 30  },
-				{ label: "grape",  y: 28  }
+				{ y: 4181563, indexLabel: "PlayStation 3" },
+				{ y: 2175498, indexLabel: "Wii" },
+				{ y: 3125844, indexLabel: "Xbox 360" },
+				{ y: 1176121, indexLabel: "Nintendo DS"},
+				{ y: 1727161, indexLabel: "PSP" },
+				{ y: 4303364, indexLabel: "Nintendo 3DS"},
+				{ y: 1717786, indexLabel: "PS Vita"}
 			]
 		}
 		]

@@ -110,6 +110,12 @@ def add_questions(request):
                         print("Answer Option " + str(j) + " : " + ans.answerLabel)
                         numAns = j
 
+                    if ans.questionType == "checkBox":
+                        print("Question " + str(i) + " type: " + ans.questionType)
+                        ans.answerLabel = request.POST.get("question"+str(i)+"Answer"+str(j),"False")
+                        print("Answer Option " + str(j) + " : " + ans.answerLabel)
+                        numAns = j
+
                     if ans.questionType == "images":
                         print("optionSelected"+str(i) + "Option"+str(j))
                         ans.urlForImage = request.POST.get("question"+str(i)+"Image"+str(j), "No URL")
@@ -128,6 +134,11 @@ def add_questions(request):
                             ans.scaleMaximum = request.POST.get("scaleValueMax"+str(i), "1")
                             print("Mimimum value: " + str(ans.scaleMaximum))
 
+                    if ans.questionType == "date":
+                        print("Question " + str(i) + " type: " + ans.questionType)
+     
+                    if ans.questionType == "text":
+                        print("Question " + str(i) + " type: " + ans.questionType)
 
                     ans.save()
                     j += 1

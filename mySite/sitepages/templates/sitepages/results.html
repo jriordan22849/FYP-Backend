@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/result.css' %}"/>
     <script type="text/javascript" src = "{% static 'js/displayQuestions.js' %}"> </script>
     <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +22,7 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
   		<div class="container-fluid">
     		<div class="navbar-header">
+            <a class="navbar-brand active" href="{% url 'create_survey' %}">Login</a>
       			<a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
       			<a class="navbar-brand" href="{% url 'create_survey' %}">Create a Survey</a>
     		</div>
@@ -71,6 +73,32 @@
             </div>
             {% endif %}
 
+            {% if answer.questionType == "checkBox" %}
+            <div style="width:800px; margin:0 auto;">
+              <br>
+              <ul class = "text-left">
+               <li>{{ answer.answerLabel }}</li>
+              </ul>
+            </div>
+            {% endif %}
+
+            {% if answer.questionType == "text" %}
+            <div style="width:800px; margin:0 auto;">
+              <br>
+
+               <label>Text Entered: {{ answer.answerLabel }}</label>
+            </div>
+            {% endif %}
+
+            {% if answer.questionType == "date" %}
+            <div style="width:800px; margin:0 auto;">
+              <br>
+               <label>Date Entered: {{ answer.answerLabel }}</label>
+            </div>
+            {% endif %}
+
+
+
             {% if answer.questionType == "scale" %}
             {% ifchanged %}
             <div style="width:800px; margin:0 auto;">
@@ -96,11 +124,8 @@
 
         {% endfor %}
         <hr>
-        <div class = "resultPos">
-        <h3>Result</h3>
-        <div id="chartContainer"+{{ question.questionNumber }} style="height: 300px; width: 100%;">
-   
-        </div>
+         <!-- Results go here -->
+
 
       {% endfor %}
       </div>

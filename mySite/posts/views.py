@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from .models import Post
-
+import json
 # Create your views here.
 def home(request):
 
@@ -12,3 +14,16 @@ def post_details(request, post_id):
 	post = get_object_or_404(Post, pk = post_id)
 	return render(request, 'posts/post_details.html',{'post':post})
 
+
+def postAnswers(request):
+    if request.method == 'POST':
+        request_data=json.loads(request.POST['root'])
+        products=request_data['prodDic']
+        for key in products:
+            value=products[key]
+            #do my stuff
+            return HttpResponse("Done")
+    else:
+    	return HttpResponse("No Data")
+    
+    
