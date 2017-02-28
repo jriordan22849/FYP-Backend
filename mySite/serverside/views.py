@@ -9,11 +9,14 @@ from posts.models import Post
 import json
 from django.http import HttpResponse
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 # Convert the survey data to json
+@csrf_exempt 
 def surveyData(request):
-	survey = serializers.serialize('json', Post.objects.all())
-	print(survey)
+	if request.method == "POST":
+		survey = serializers.serialize('json', Post.objects.all())
+		print(survey)
 	return HttpResponse('{ "data": '+survey+'}')
 
 # Convert the question data to json
