@@ -17,7 +17,7 @@ def surveyData(request):
 	if request.method == "POST":
 		survey = serializers.serialize('json', Post.objects.all())
 		print(survey)
-	return HttpResponse('{ "data": '+survey+'}')
+	return HttpResponse(done)
 
 # Convert the question data to json
 def questionData(request):
