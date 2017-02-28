@@ -12,7 +12,7 @@ from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
 # Convert the survey data to json
-@csrf_exempt 
+
 def surveyData(request):
 	if request.method == "POST":
 		survey = serializers.serialize('json', Post.objects.all())
