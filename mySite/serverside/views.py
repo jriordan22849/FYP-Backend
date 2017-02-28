@@ -13,6 +13,7 @@ from django.core import serializers
 # Convert the survey data to json
 def surveyData(request):
 	survey = serializers.serialize('json', Post.objects.all())
+	console.log(survey)
 	return HttpResponse('{ "data": '+survey+'}')
 
 # Convert the question data to json
