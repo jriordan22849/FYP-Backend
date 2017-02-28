@@ -9,7 +9,7 @@ from posts.models import Post
 import json
 from django.http import HttpResponse
 from django.core import serializers
-from django.views.decorators.csrf import csrf_exempt
+
 
 # Convert the survey data to json
 
