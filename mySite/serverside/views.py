@@ -9,13 +9,10 @@ from posts.models import Post
 import json
 from django.http import HttpResponse
 from django.core import serializers
-from django.views.decorators.csrf import csrf_exempt
-
 
 # Convert the survey data to json
 def surveyData(request):
 	survey = serializers.serialize('json', Post.objects.all())
-	#print('{ "data": '+survey+'}')
 	return HttpResponse('{ "data": '+survey+'}')
 
 # Convert the question data to json
@@ -27,7 +24,7 @@ def questionData(request):
 def answerData(request):
 	answers = serializers.serialize('json', Answers.objects.all())
 	return HttpResponse('{ "data": '+answers+'}')
-	
+
 @csrf_exempt 
 def dataPost(request):
     if request.method == "POST":

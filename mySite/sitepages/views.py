@@ -69,12 +69,6 @@ def add_questions(request):
             questionCounter = request.POST.get('numquestion', False)
             questionNumber = request.POST.get('questionNumber', False)
             ansNumber = request.POST.get('ans',False)
-            private = request.POST.get('makePrivateRadio',"no")
-            print("Private value " + private)
-
-            if private == "yes":
-                privatePasscode = request.POST.get('makePrivate',"passcode")
-                print("Passcode: " + privatePasscode)
             #print("\n\n\nNumber of answers " + str(ansNumber))
 
             # save the survey title and information regarding the survey to the database.
@@ -83,8 +77,6 @@ def add_questions(request):
             survey.dateSurvCreated = timezone.datetime.now()
             survey.numOfQuestions = questionCounter
             survey.numOfTimesCompleted = 0
-            #survey.private = private
-            #survey.privatePasscode = privatePasscode
 
 
             print("\n\n\nSurvey Title: " + survey.title)
