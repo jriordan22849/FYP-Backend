@@ -83,8 +83,8 @@ def add_questions(request):
             survey.dateSurvCreated = timezone.datetime.now()
             survey.numOfQuestions = questionCounter
             survey.numOfTimesCompleted = 0
-            survey.private = private
-            survey.privatePasscode = privatePasscode
+            #survey.private = private
+            #survey.privatePasscode = privatePasscode
 
 
             print("\n\n\nSurvey Title: " + survey.title)

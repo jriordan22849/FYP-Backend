@@ -7,8 +7,8 @@ class Post(models.Model):
 	dateSurvCreated = models.DateTimeField()
 	numOfQuestions = models.IntegerField( default = '1')
 	numOfTimesCompleted = models.IntegerField( default = '1')
-	private = models.CharField(max_length = 250, default = "no")
-	privatePasscode = models.CharField(max_length = 250, default = "passcode")
+	#private = models.CharField(max_length = 250, default = "no")
+	#privatePasscode = models.CharField(max_length = 250, default = "passcode")
 
 
 	def __str__(self):
