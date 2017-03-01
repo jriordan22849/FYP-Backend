@@ -8,7 +8,7 @@ class Post(models.Model):
 	numOfQuestions = models.IntegerField( default = '1')
 	numOfTimesCompleted = models.IntegerField( default = '1')
 	private = models.CharField(max_length = 250, default = "no")
-	private = models.CharField(max_length = 250, default = "code")
+	passcode = models.CharField(max_length = 250, default = "code")
 
 	def __str__(self):
 		return self.title
