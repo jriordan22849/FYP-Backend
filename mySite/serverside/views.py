@@ -32,4 +32,4 @@ def dataPost(request):
     if request.method == "POST":
         received_json_data=json.loads(request.body)
         print(received_json_data)
-	return HttpResponse({'received data': request})
+        return HttpResponse({'received data': request})

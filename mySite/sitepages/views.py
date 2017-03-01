@@ -69,14 +69,23 @@ def add_questions(request):
             questionCounter = request.POST.get('numquestion', False)
             questionNumber = request.POST.get('questionNumber', False)
             ansNumber = request.POST.get('ans',False)
+            privateSelected = request.POST.get('privateRadio',"no")
+            passcodeEntered = request.POST.get('miakePrivateText',"code")
+            print("Private selected " + privateSelected)
+            print("Passcode entered " + passcodeEntered)
+
+
+
             #print("\n\n\nNumber of answers " + str(ansNumber))
 
             # save the survey title and information regarding the survey to the database.
             survey = posts.models.Post()
             survey.title = request.POST["surveyName"]
             survey.dateSurvCreated = timezone.datetime.now()
-            survey.numOfQuestions = questionCounter
-            survey.numOfTimesCompleted = 0
+            survey.numOfQuestions = str(questionCounter)
+            survey.numOfTimesCompleted = str(0)
+            survey.private = privateSelected
+            survey.passcode = passcodeEntered
 
 
             print("\n\n\nSurvey Title: " + survey.title)
