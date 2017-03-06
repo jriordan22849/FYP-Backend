@@ -80,6 +80,11 @@
                 {% if post.private == "yes" %}
                   <span class ="glyphicon glyphicon-lock"></span>
                 {% endif %}
+                
+                {% if post.private == "no" %}
+                  <span class ="glyphicon glyphicon glyphicon-file"></span>
+                {% endif %}
+                
                 </td>
                 <td>
                   {% if post.private == "yes" %}
@@ -92,7 +97,7 @@
                 {% endif %}
 
                 {% if post.private == "no" %}
-              
+               
                  
                 <a href="{% url 'post_detail' post.id %}">
                 <button class="btn btn-default btn-lg"><span class ="glyphicon glyphicon-stats"></span></button></a>
