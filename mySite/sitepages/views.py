@@ -7,7 +7,8 @@ import posts.models
 from posts.models import Question
 from posts.models import Answers
 from posts.models import Post
-
+from posts.models import Response
+import json
    
 def view_results(request):
     return HttpResponse("")
@@ -24,8 +25,12 @@ def post_detail(request, post_id):
     obj = Post.objects.get(pk=post_id)
     questions = Question.objects.filter(surveybelongto=obj.title).values()
     answers = Answers.objects.filter(surveyTitle = obj.title).values()
+    #response = Response.objects.filter(survey = obj.title).values()
+    #response = Response.objects.filter(survey = obj.title).values()
     
-    return render(request, 'sitepages/results.html',{'obj':obj, 'questions':questions, 'answers':answers}  )
+    response = Response.objects.filter(survey = obj.title).values()
+    print(response)
+    return render(request, 'sitepages/results.html',{'obj':obj, 'questions':questions, 'answers':answers, 'response':response}  )
 
 def get_name(request):
     # if this is a POST request we need to process the form data

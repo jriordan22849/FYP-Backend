@@ -53,19 +53,22 @@
         </div>
       </div>
       <hr>
+	  
+
       
       {% for question in questions.all %}
         <br>
         <h3 class = "text-center">Question {{ question.questionNumber }}. {{ question.questionLabel }}</h3>
-
-
+		<h4 class = "text-left">Options Available</h4>
 
         {% for answer in answers.all %}
           
 
           {% if answer.questionNumber == question.questionNumber %}
             {% if answer.questionType == "multiple" %}
+            
             <div style="width:800px; margin:0 auto;">
+	            
               <br>
               <ul class = "text-left">
                <li>{{ answer.answerLabel }}</li>
@@ -131,7 +134,21 @@
 
         {% endfor %}
         <hr>
-         <!-- Results go here -->
+        <h4>Answers Entered</h4>
+        {% for response in response.all %}	
+            <div style="width:800px; margin:0 auto;">
+            	<div class="flexbox">
+					<div class= "flexitem">
+						<ul class = "text-left">
+						{% if response.question == question.questionLabel %}
+							<li>{{ response.answer }}</li>
+						{% endif %}
+					 </div>
+            	</div>
+            </div>
+		{% endfor %}
+		<br>
+		<hr>
 
 
       {% endfor %}

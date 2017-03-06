@@ -11,6 +11,7 @@ from django.http import HttpResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from csv import reader
+from posts.models import Response
 
 
 
@@ -33,6 +34,11 @@ def answerData(request):
 # function to handle the post from the ios application
 @csrf_exempt 
 def dataPost(request):
+	titleBool = False
+	quesBool = False
+	ansBool = False
+	length = 0
+	index = 0
 	survey = Post.objects.all()
 	increment = 1
 	if request.method == "POST":
@@ -53,10 +59,48 @@ def dataPost(request):
 			survey.numOfTimesCompleted = survey.numOfTimesCompleted + increment
 			survey.save()
 	
-		received_json_data = json.loads(request.body)
-		dataArray = []
-		dataArray.append((map(str, received_json_data)))
-
-		print dataArray
-		print len(dataArray )
+		for char in '[]"':  
+			received_json_data = received_json_data.replace(char,'')  
+		print("Received data " + received_json_data)
+		my_list = received_json_data.split(",")
+		print("my list " + str(my_list))
+		
+		length = (len(my_list))
+		print("Length of my list " + str(length))
+		
+		#iterate through data
+		while(index < length):
+			response = posts.models.Response()  
+			if index == 0:
+				print("Survey title " +my_list[index])
+				title = str(my_list[index])
+				titleBool = True
+			
+			elif index % 2 == 0:
+				#Answer title
+				response.answer = my_list[index]
+				quesBool = True
+				print("Response answer: " + response.answer)
+				
+			elif index % 2 == 1:
+				#Question title
+				question = str(my_list[index])
+				ansBool = True
+				
+				
+			if titleBool and quesBool and ansBool:
+				fixed = question[1:]
+				print("Response question:" + fixed)
+				response.question = fixed
+				response.survey = title
+				response.save()
+				quesBool = False
+				ansBool = False
+				
+			
+			
+			
+			index = index  + 1
+		
+		
 	return HttpResponse({'received data': request})
