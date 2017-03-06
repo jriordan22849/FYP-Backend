@@ -10,6 +10,8 @@ import json
 from django.http import HttpResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from csv import reader
+
 
 
 # Convert the survey data to json
@@ -28,6 +30,7 @@ def answerData(request):
 	answers = serializers.serialize('json', Answers.objects.all())
 	return HttpResponse('{ "data": '+answers+'}')
 	
+# function to handle the post from the ios application
 @csrf_exempt 
 def dataPost(request):
 	survey = Post.objects.all()
@@ -35,9 +38,8 @@ def dataPost(request):
 	if request.method == "POST":
 		#received_json_data = json.loads(request.body)
 		received_json_data = json.dumps(json.loads(request.body))
-		splitJson = ""
-		splitJson = received_json_data.split(",")
 		
+		splitJson = received_json_data.split(", ")
 		#remove characters from the string and check to see if the survey title exists, if so, update the times completed by plus one
 		splitJson[0] = splitJson[0].replace("[","")
 		splitJson[0] = splitJson[0].replace('"',"")
@@ -50,9 +52,11 @@ def dataPost(request):
 			survey = Post.objects.get(title = splitJson[0])
 			survey.numOfTimesCompleted = survey.numOfTimesCompleted + increment
 			survey.save()
+	
+		received_json_data = json.loads(request.body)
+		dataArray = []
+		dataArray.append((map(str, received_json_data)))
 
-		
-
-			
-		#print(received_json_data)
+		print dataArray
+		print len(dataArray )
 	return HttpResponse({'received data': request})
