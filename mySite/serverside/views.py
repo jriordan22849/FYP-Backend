@@ -71,6 +71,7 @@ def dataPost(request):
 		#iterate through data
 		while(index < length):
 			response = posts.models.Response()  
+			res = posts.models.Response() 
 			if index == 0:
 				print("Survey title " +my_list[index])
 				title = str(my_list[index])
@@ -78,7 +79,7 @@ def dataPost(request):
 			
 			elif index % 2 == 0:
 				#Answer title
-				response.answer = my_list[index]
+				ans = my_list[index]
 				quesBool = True
 				print("Response answer: " + response.answer)
 				
@@ -87,13 +88,30 @@ def dataPost(request):
 				question = str(my_list[index])
 				ansBool = True
 				
-				
+			
+			# save the values to the database.
+			# if the answer alreasy exists, increas the answer counter 
+			# if the answer doesnt exist, save the answer to the database.
 			if titleBool and quesBool and ansBool:
 				fixed = question[1:]
 				print("Response question:" + fixed)
 				response.question = fixed
 				response.survey = title
-				response.save()
+				response.answer = ans
+				
+				if Response.objects.filter(survey = title,question = fixed, answer = ans).values():
+					print("Answer already in db")
+					res = Response.objects.get(survey = title,question = fixed, answer = ans)
+					value = increment + int(res.answerCounter)
+					print("Value is " + str(value))
+					res.answerCounter = str(value)
+					res.save()
+				else:
+					print("Answer not in db")
+					response.answerCounter = 1
+					response.save()
+					
+				
 				quesBool = False
 				ansBool = False
 				

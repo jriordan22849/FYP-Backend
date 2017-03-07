@@ -5,17 +5,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/create_survey.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/result.css' %}"/>
     <script type="text/javascript" src = "{% static 'js/displayQuestions.js' %}"> </script>
-    
-    <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <title>Survey Results </title>
+  
 
 
   </head>
@@ -26,6 +22,7 @@
             <a class="navbar-brand active" href="{% url 'create_survey' %}">Login</a>
       			<a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
       			<a class="navbar-brand" href="{% url 'create_survey' %}">Create a Survey</a>
+
     		</div>
  
       		</div>
@@ -35,9 +32,11 @@
  	<div class="container-fluid">
     <div class="jumbotron" style="background-color: #94B0DA">
       <h1 class = "text-center">Survey Results</h1>
+      
     </div>
 
     <div id="parent">
+
     <div id="labels">
     
     
@@ -142,16 +141,36 @@
 					<div class= "flexitem">
 						
 						{% if response.question == question.questionLabel %}
-							{% if answer.questionType == "scale" %}
-							
-							{% endif %}
-							<li  type="radio"> {{ response.answer }}</li>
+						
+						<table class="table" >
+						    <thead>
+						      <tr>
+						        <th>Answer</th>
+						        <th>Counter</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr>
+						        <td>{{ response.answer }} </td>
+						        <td>{{ response.answerCounter }}</td>
+						      </tr>						
+						    </tbody>
+						 
+						</table>
+
+	
+	
+						
 						{% endif %}
+					
 					
 					 </div>
             	</div>
+            	
             </div>
+
 		{% endfor %}
+		
 		<br>
 		<hr>
 
@@ -185,11 +204,13 @@
 
     </div> -->
 
+
     </div>
+    
   </div>
 
 
-
+  	
 
 	</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

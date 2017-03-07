@@ -40,6 +40,7 @@ class Response(models.Model):
 	survey = models.CharField(max_length = 250, default = "survey")
 	question = models.CharField(max_length = 250, default = "question")
 	answer = models.CharField(max_length = 250, default = "answer")
+	answerCounter = models.IntegerField( default = '0')
 	
 
 
