@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/create_survey.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/result.css' %}"/>
     <script type="text/javascript" src = "{% static 'js/displayQuestions.js' %}"> </script>
+    
     <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <meta charset="utf-8">
@@ -59,7 +60,7 @@
       {% for question in questions.all %}
         <br>
         <h3 class = "text-center">Question {{ question.questionNumber }}. {{ question.questionLabel }}</h3>
-		<h4 class = "text-left">Options Available</h4>
+		<h4 class = "resultPos">Options Available</h4>
 
         {% for answer in answers.all %}
           
@@ -134,15 +135,19 @@
 
         {% endfor %}
         <hr>
-        <h4>Answers Entered</h4>
+        <h4 class= "resultPos">Answers Entered</h4>
         {% for response in response.all %}	
             <div style="width:800px; margin:0 auto;">
             	<div class="flexbox">
 					<div class= "flexitem">
-						<ul class = "text-left">
+						
 						{% if response.question == question.questionLabel %}
-							<li>{{ response.answer }}</li>
+							{% if answer.questionType == "scale" %}
+							
+							{% endif %}
+							<li  type="radio"> {{ response.answer }}</li>
 						{% endif %}
+					
 					 </div>
             	</div>
             </div>
