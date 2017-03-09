@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/result.css' %}"/>
     <script type="text/javascript" src = "{% static 'js/displayQuestions.js' %}"> </script>
 
+
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,7 +49,11 @@
       <div class = "text-center">
         <h2>Survey Title: {{ obj.title }} </h2>
         <div class = "resultPos">
-        <h4 class=text-left>Number of Times completed: {{ obj.numOfTimesCompleted }}</h4>
+	       <div class="flexbox">
+              <div class= "flexitem">
+			  	<h4 class=text-left>Number of Times completed: {{ obj.numOfTimesCompleted }}</h4>
+              </div>
+	       </div>
         <h4 class=text-left>Number of Questions: {{ obj.numOfQuestions }}
         </h4>
         </div>
@@ -65,15 +71,16 @@
           
 
           {% if answer.questionNumber == question.questionNumber %}
+          
             {% if answer.questionType == "multiple" %}
-            
+            <ul class = "text-left">
             <div style="width:800px; margin:0 auto;">
-	            
-              <br>
+
               <ul class = "text-left">
                <li>{{ answer.answerLabel }}</li>
-              </ul>
+              
             </div>
+            </ul>
             {% endif %}
 
             {% if answer.questionType == "checkBox" %}
@@ -113,20 +120,18 @@
             {% ifchanged %}
             <div style="width:800px; margin:0 auto;">
               <br>
-              <h4>Minimum Scale: {{ answer.scaleMinimum }}</h4>
-              <h4>Maximum Scale: {{ answer.scaleMaximum }}</h4>
+              <label>Minimum Scale: {{ answer.scaleMinimum }}</label>
+              <label>Maximum Scale: {{ answer.scaleMaximum }}</label>
             </div>
             {% endifchanged %}
             {% endif %}
 
             {% if answer.questionType == "images" %}
             <div style="width:800px; margin:0 auto;">
-            <div class="flexbox">
-              <div class= "flexitem">
+
                 <img src={{ answer.urlForImage}} class="img-rounded"> 
-              </div>
-            </div>
-            <h4>Answer {{ answer.answerID }}</h4>
+                
+				<label>Answer {{ answer.answerID }}</label>
             </div>
             {% endif %}
 
@@ -134,11 +139,11 @@
 
         {% endfor %}
         <hr>
+        <br>
         <h4 class= "resultPos">Answers Entered</h4>
         {% for response in response.all %}	
-            <div style="width:800px; margin:0 auto;">
-            	<div class="flexbox">
-					<div class= "flexitem">
+            <div style="width:80%; margin:0 auto;">
+
 						
 						{% if response.question == question.questionLabel %}
 						
@@ -162,10 +167,7 @@
 	
 						
 						{% endif %}
-					
-					
-					 </div>
-            	</div>
+
             	
             </div>
 
@@ -173,7 +175,6 @@
 		
 		<br>
 		<hr>
-
 
       {% endfor %}
       </div>

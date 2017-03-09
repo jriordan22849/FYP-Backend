@@ -99,6 +99,7 @@ def dataPost(request):
 				response.survey = title
 				response.answer = ans
 				
+				
 				if Response.objects.filter(survey = title,question = fixed, answer = ans).values():
 					print("Answer already in db")
 					res = Response.objects.get(survey = title,question = fixed, answer = ans)

@@ -9,6 +9,7 @@ from posts.models import Answers
 from posts.models import Post
 from posts.models import Response
 import json
+from chartit import DataPool, Chart
    
 def view_results(request):
     return HttpResponse("")
@@ -22,6 +23,8 @@ def query_survey(request):
 
 
 def post_detail(request, post_id):
+	
+	
     obj = Post.objects.get(pk=post_id)
     questions = Question.objects.filter(surveybelongto=obj.title).values()
     answers = Answers.objects.filter(surveyTitle = obj.title).values()
@@ -29,7 +32,7 @@ def post_detail(request, post_id):
     #response = Response.objects.filter(survey = obj.title).values()
     
     response = Response.objects.filter(survey = obj.title).values()
-    print(response)
+    #print(response)
     return render(request, 'sitepages/results.html',{'obj':obj, 'questions':questions, 'answers':answers, 'response':response}  )
 
 def get_name(request):
