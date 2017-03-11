@@ -10,6 +10,7 @@ from posts.models import Post
 from posts.models import Response
 import json
 from chartit import DataPool, Chart
+
    
 def view_results(request):
     return HttpResponse("")
