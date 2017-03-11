@@ -26,17 +26,20 @@ def query_survey(request):
 
 
 def post_detail(request, post_id):
-	
-	
-    obj = Post.objects.get(pk=post_id)
-    questions = Question.objects.filter(surveybelongto=obj.title).values()
-    answers = Answers.objects.filter(surveyTitle = obj.title).values()
-    #response = Response.objects.filter(survey = obj.title).values()
-    #response = Response.objects.filter(survey = obj.title).values()
-    
-    response = Response.objects.filter(survey = obj.title).values()
-    #print(response)
-    return render(request, 'sitepages/results.html',{'obj':obj, 'questions':questions, 'answers':answers, 'response':response}  )
+    if request.user.is_authenticated():
+
+        obj = Post.objects.get(pk=post_id)
+        questions = Question.objects.filter(surveybelongto=obj.title).values()
+        answers = Answers.objects.filter(surveyTitle = obj.title).values()
+        #response = Response.objects.filter(survey = obj.title).values()
+        #response = Response.objects.filter(survey = obj.title).values()
+            
+        response = Response.objects.filter(survey = obj.title).values()
+        #print(response)
+        return render(request, 'sitepages/results.html',{'obj':obj, 'questions':questions, 'answers':answers, 'response':response} )
+
+    else:
+        return render(request,'accounts/login.html', {'error':'To view the survey results, please login.'})
 
 def get_name(request):
     # if this is a POST request we need to process the form data

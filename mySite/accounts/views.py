@@ -32,7 +32,8 @@ def loginUser(request):
 		user = authenticate(username = username, password = password)
 
 		if user is not None:
-			return render(request,'posts/home.html')
+			login(request, user)
+			return render(request,'accounts/login.html',{'error': 'User Logged in.'})
 		else: 
 			return render(request,'accounts/login.html', {'error': 'Username and Password doesnt exist.'})
 	else:

@@ -25,16 +25,24 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
   		<div class="container-fluid">
     		<div class="navbar-header">
-            <a class="navbar-brand active" href="{% url 'login' %}">Login</a>
-      			<a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
-      			<a class="navbar-brand" href="{% url 'create_survey' %}">Create a Survey</a>
 
+            {% if user.is_authenticated %}
+            <a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
+            <a class="navbar-brand active" href="{% url 'create_survey' %}">Create a Survey</a>
             <a class="navbar-brand" href="#" onclick="document.getElementById('logoutForm').submit()">Logout</a>
-
+            <a class="navbar-brand">{{user.username}}</a>
             <form id ="logoutForm" method="POST" action = "{% url 'logout' %}">
             {% csrf_token %}
             <input type ="hidden">
             </form>
+
+            {% else %}
+            <a class="navbar-brand active" href="{% url 'signup' %}">Sign Up</a>
+            <a class="navbar-brand active" href="{% url 'login' %}">Login</a>
+            <a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
+            <a class="navbar-brand active" href="{% url 'create_survey' %}">Create a Survey</a>
+            
+            {% endif %}
 
     		</div>
  
@@ -43,7 +51,7 @@
 	</nav>
   <body>
  	<div class="container-fluid">
-    <div class="jumbotron" style="background-color: #94B0DA">
+    <div class="jumbotron" style="background-color: #65AFFF">
       <h1 class = "text-center">Survey Results</h1>
       
     </div>
