@@ -20,10 +20,14 @@ import sitepages.views
 import serverside.views
 from django.conf.urls.static import static
 from django.conf import settings
+import accounts.views
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^signup/',accounts.views.signup, name ="signup"),
+    url(r'^login/',accounts.views.loginUser, name ="login"),
+    url(r'^logout/',accounts.views.logoutUser, name ="logout"),
     url(r'^$',posts.views.home, name = "home"),
     url(r'^posts/(?P<post_id>[0-9]+)/$',posts.views.post_details),
     url(r'^create_survey/',sitepages.views.create_survey, name = "create_survey"),

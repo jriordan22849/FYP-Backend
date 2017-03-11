@@ -54,7 +54,7 @@ def dataPost(request):
 	    # increment the numbe rof times competed by one if the survey title exists. 
 	    # Update the value in the Post model.
 		if Post.objects.filter(title=splitJson[0]).exists():
-			print 'Survey title exist'
+			print('Survey title exist')
 			survey = Post.objects.get(title = splitJson[0])
 			survey.numOfTimesCompleted = survey.numOfTimesCompleted + increment
 			survey.save()

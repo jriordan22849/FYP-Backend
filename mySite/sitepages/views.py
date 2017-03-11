@@ -10,6 +10,8 @@ from posts.models import Post
 from posts.models import Response
 import json
 from chartit import DataPool, Chart
+from django.contrib.auth.decorators import login_required
+import accounts.views
 
    
 def view_results(request):
@@ -62,6 +64,7 @@ def create_survey(request):
 
 def view_survey(request):
     return HttpResponse("Woofghdfgla")
+
 
 def add_questions(request):
     i = 1

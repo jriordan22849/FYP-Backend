@@ -17,9 +17,16 @@
   <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand active" href="{% url 'create_survey' %}">Login</a>
+            <a class="navbar-brand active" href="{% url 'login' %}">Login</a>
             <a class="navbar-brand" href="{% url 'home' %}">View Surveys</a>
             <a class="navbar-brand" href="{% url 'create_survey' %}">Create a Survey</a>
+
+            <a class="navbar-brand" href="#" onclick="document.getElementById('logoutForm').submit()">Logout</a>
+
+            <form id ="logoutForm" method="POST" action = "{% url 'logout' %}">
+            {% csrf_token %}
+            <input type ="hidden">
+            </form>
         </div>
  
           </div>
