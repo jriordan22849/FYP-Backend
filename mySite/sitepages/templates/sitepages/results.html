@@ -5,7 +5,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/create_survey.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/result.css' %}"/>
     <script type="text/javascript" src = "{% static 'js/displayQuestions.js' %}"> </script>
-
+    <script type="text/javascript" src = "{% static 'js/chartSscript.js' %}"> </script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" type="text/javascript"></script>
+</head>
 
 
     <meta charset="utf-8">
@@ -141,31 +145,77 @@
         <hr>
         <br>
         <h4 class= "resultPos">Answers Entered</h4>
+        
+        <br>
+
+        <table class="table" >
+	        
+	        <thead>
+				<tr>
+					<th>Answer</th>
+					<th>Counter</th>
+				</tr>
+			</thead>
+	    {% with 'responseLabel' as list %}
+
         {% for response in response.all %}	
             <div style="width:80%; margin:0 auto;">
 
 						
 						{% if response.question == question.questionLabel %}
 						
-						<table class="table" >
-						    <thead>
-						      <tr>
-						        <th>Answer</th>
-						        <th>Counter</th>
-						      </tr>
-						    </thead>
+
 						    <tbody>
 						      <tr>
 						        <td>{{ response.answer }} </td>
+						         
 						        <td>{{ response.answerCounter }}</td>
-						      </tr>						
+						      </tr>			
+						      
+								<script>
+						        var ctx = document.getElementById("watchersCanvas{{question.questionNumber}}");
+						        
+								
+								var cars = ['gg','gg','edf'];
+								cars.push('{{responseLabel}}')
+								var range = [10,4]; 
+						        var myWatchersChart = new Chart(ctx, {
+						            type: 'bar',
+						            data: {
+						                labels: results,
+						                datasets: [{
+						                    label: '{{  question.questionLabel }}',
+						                    data: [10,5,2],
+						                    backgroundColor: [
+						                        'rgba(255, 99, 132, 0.2)',
+						                        'rgba(54, 162, 235, 0.2)'
+						                    ],
+						                    borderColor: [
+						                        'rgba(255,99,132,1)',
+						                        'rgba(54, 162, 235, 1)'
+						                    ],
+						                    borderWidth: 1
+						                }]
+						            },
+						            options: {
+						                scales: {
+						                    yAxes: [{
+						                        ticks: {
+						                            beginAtZero: true
+						                        }
+						                    }]
+						                }
+						            }
+						        });
+						        
+						        
+	
+						    </script>
+			
 						    </tbody>
 						 
-						</table>
-
-	
-	
 						
+					
 						{% endif %}
 
             	
@@ -173,9 +223,18 @@
 
 		{% endfor %}
 		
-		<br>
-		<hr>
+		{%for a in responseLabel%}
+		  <label>{{a}}</label>l
+		{%endfor%}
+		{% endwith %}
+		</table>
 
+    	<hr>
+    	
+
+
+    	
+    	<hr>
       {% endfor %}
       </div>
     </form>
@@ -221,4 +280,6 @@
   </body>
 </html>
 
+<div id="canvas-holder" style="width:45%">
+  
 
