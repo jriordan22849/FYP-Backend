@@ -189,16 +189,6 @@
                             
                             var value = "{{ total }} ";
                             
-							var validation = value.includes("pixabay");
-							
-							
-							var substr = "pixabay";
-							var result = value.indexOf(substr) > -1;
-							
-							if result == true {
-								value = "image";
-							}
-						
                             var dataValue = "{{ response.answerCounter }}";
                             answers.push(value);
                             dataForAnswers.push(dataValue);
@@ -208,14 +198,22 @@
                             </script>
                             
                             <script>
+	                        
+	                        
                             var ctx = document.getElementById("watchersCanvas{{ question.questionNumber }}");
+
                             var result = localStorage.getItem('response{{ question.questionNumber }}');
                             var array = result.split(',');
-                            
-                            
+     
                             var dataResult = localStorage.getItem('data{{ question.questionNumber }}');
                             var dataArray = dataResult.split(',');
-                            
+	
+							
+							window.localStorage.removeItem("data{{ question.questionNumber }}");
+							window.localStorage.removeItem("response{{ question.questionNumber }}");
+							
+            				//var array = ["fog","cdc"];
+            				//var dataArray = [12,12];                
                             var myWatchersChart = new Chart(ctx, {
                                 type: 'bar',
                                 data: {
@@ -325,8 +323,9 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
+  
+
 </html>
 
-<div id="canvas-holder" style="width:45%">
   
 
