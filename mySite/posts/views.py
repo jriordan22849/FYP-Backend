@@ -8,8 +8,11 @@ from django.contrib.auth import login,authenticate,logout
 
 # Create your views here.
 def home(request):
-    posts = Post.objects.order_by('title')
-    return render(request,'posts/home.html', {'posts':posts})
+	if request.user.is_authenticated():
+		posts = Post.objects.order_by('title')
+		return render(request,'posts/home.html', {'posts':posts})
+	else:
+		return render(request,'accounts/login.html', {'error':'Please login.'})
 
 
 def post_details(request, post_id):
