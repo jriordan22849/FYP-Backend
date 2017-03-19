@@ -18,13 +18,18 @@ def view_results(request):
     return HttpResponse("")
 
 
+# user must be logged in to search for surveys
 def query_survey(request):
-    query = request.POST.get('search_surveys', "")
-    # search for results that contain a string. Pass the results back to the home page.
-    posts = Post.objects.filter(title__icontains= query)
-    return render(request,'posts/home.html', {'posts':posts})
+	if request.user.is_authenticated():
+		query = request.POST.get('search_surveys', "")
+		# search for results that contain a string. Pass the results back to the home page.
+		posts = Post.objects.filter(title__icontains= query)
+		return render(request,'posts/home.html', {'posts':posts})
+	else:
+		return render(request,'accounts/login.html', {'error':'To search for a survey, please login.'})
 
 
+#user must be logged in to biew the results of a survey
 def post_detail(request, post_id):
     if request.user.is_authenticated():
 
@@ -43,21 +48,8 @@ def post_detail(request, post_id):
 
 def get_name(request):
     # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = NameForm()
-
-    return render(request, 'sitepages/name.html',{'form':form} )
+  
+    return render(request, 'sitepages/name.html')
 
 def surveyProcess(request):
     return HttpResponse("success")

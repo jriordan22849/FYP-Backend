@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'j+)&zbkbof64h4ex427z4gld7s!#lgo#+q$ms!6t%ab@v3*xz9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['104.131.2.211','.survall.top','0.0.0.0']
 
