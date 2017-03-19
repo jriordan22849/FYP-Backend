@@ -48,24 +48,28 @@
      <h1 class = "text-center">Sign Up</h1>
     </div>
 
-    {% if error %}
-    	{{ error }}
-    {% endif %}
+
 
     <form action = "{% url 'signup'%}" method = "POST">
     {% csrf_token %}
-
+    <div class="text-center col-md-4 col-md-offset-4" style = "background: white">
+	    
+    {% if error %}
+    	{{ error }}
+    {% endif %}
+    
     <h2>Username</h2>
-    <input type = "text" name = "username" placeholder="Enter username" />
+    <input type = "text" name = "username" placeholder="Enter username" class="form-control" />
 
     <h2>Enter Password</h2>
-    <input type = "password" name = "password1" placeholder="Enter password" />
+    <input type = "password" name = "password1" placeholder="Enter password" class="form-control" />
 
     <h2>Confirm Password</h2>
-    <input type = "password" name = "password2" placeholder = "Re-enter password"/>
+    <input type = "password" name = "password2" placeholder = "Re-enter password" class="form-control"/>
 	<br>
 	<br>
-    <input type="submit" value = "Sign up" class="btn btn-default btn-lg btn-success">
+    <input type="submit" value = "Sign up" class="btn btn-lg btn-success btn-primary btn-block">
+    </div>
     </form>
 
 

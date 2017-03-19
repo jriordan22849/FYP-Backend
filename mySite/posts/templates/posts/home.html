@@ -84,7 +84,7 @@
                   <th>Private</th>
                   <th>Result</th>
                	</tr>
-				  {% for post in posts.all %}
+				 {% for post in posts.all %}
 				  <tr>
                	<td>{{ post.title }}</td>
                	<td>{{ post.dateFormat }}</td>	
@@ -101,18 +101,13 @@
                 
                 </td>
                 <td>
-                  {% if post.private == "yes" %}
-              
-                 
+                {% if post.private == "yes" %}
                 <a href="{% url 'post_detail' post.id %}">
                 <button class="btn btn-default btn-lg" onclick="return validatePasscode('{{ post.passcode }}','{{ post.id }}' )"><span class ="glyphicon glyphicon-stats"></span></button></a>
-
                 </td>
                 {% endif %}
 
-                {% if post.private == "no" %}
-               
-                 
+                {% if post.private == "no" %} 
                 <a href="{% url 'post_detail' post.id %}">
                 <button class="btn btn-default btn-lg"><span class ="glyphicon glyphicon-stats"></span></button></a>
                 </a>
@@ -120,11 +115,9 @@
                 {% endif %}
                 </td>
           </tr>
-
-
           {% endfor %}
                
-			</table>  
+		</table>  
       </div>
       </div>
       </div>
